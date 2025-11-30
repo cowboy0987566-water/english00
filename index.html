@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>GEPT 結構分離版 v24.0</title>
+<title>GEPT 結構分離版 v25.0</title>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -14,9 +14,7 @@
     /* --- 核心設定 --- */
     * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     
-    :root {
-        --fs-word: 42px; --fs-content: 15px; --fs-sub: 13px;
-    }
+    :root { --fs-word: 42px; --fs-content: 15px; --fs-sub: 13px; }
     [data-fontsize="small"] { --fs-word: 36px; --fs-content: 13px; --fs-sub: 12px; }
     [data-fontsize="medium"] { --fs-word: 42px; --fs-content: 15px; --fs-sub: 13px; }
     [data-fontsize="large"] { --fs-word: 52px; --fs-content: 18px; --fs-sub: 15px; }
@@ -49,7 +47,6 @@
     /* 卡片區 */
     .card-stack { width: 94%; max-width: 450px; height: 100%; position: relative; margin: 15px 0; perspective: 1000px; min-height: 0; }
     .card { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: white; border-radius: 24px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1); padding: 0; display: flex; flex-direction: column; transform-origin: 50% 100%; cursor: grab; user-select: none; touch-action: none; overflow: hidden; transition: transform 0.5s ease-out, opacity 0.5s; }
-    .card.cursor-default { cursor: default; }
     .card-content-scroll { flex: 1; overflow-y: auto; padding: 25px 20px 40px 20px; display: flex; flex-direction: column; align-items: flex-start; -webkit-overflow-scrolling: touch; }
 
     /* 按鈕區 */
@@ -229,9 +226,73 @@
     let userSettings = { gender: 'female', showTrans: true, showColloc: true, showMedia: true, showSynAnt: true, showKeyPoint: true, fontSize: 'medium' };
     let studyList = [];
     let availableVoices = [];
-    const STORAGE_KEY = 'gept_v23_history';
+    const STORAGE_KEY = 'gept_v24_1_history';
 
     window.speechSynthesis.onvoiceschanged = function() { availableVoices = window.speechSynthesis.getVoices(); };
+
+    // 若無 data.js，請使用以下內建測試資料
+    const fullDictionary = [
+    {
+        word: "Break",
+        level: "elem",
+        kk: "[brek]",
+        pos: "v.",
+        verbForms: "break / broke / broken",
+        defEn: "To separate into two or more pieces.",
+        defCh: "打破；損壞；休息",
+        keyPoint: { title: "Trap!", desc: "作名詞時 'Take a break' 是休息，不是打破東西。", exEn: "I need to take a break.", exCh: "我需要休息一下。" },
+        synonyms: [{en: "Smash", ch: "粉碎"}, {en: "Crack", ch: "裂開"}],
+        antonyms: [{en: "Repair", ch: "修理"}, {en: "Fix", ch: "固定"}],
+        collocs: [
+            { en: "break the law", ch: "違法", sentEn: "He broke the law.", sentCh: "他違法了。" },
+            { en: "take a break", ch: "休息一下", sentEn: "Let's take a break.", sentCh: "休息一下吧。" }
+        ],
+        media: [
+            { type: "TV Show", source: "Friends", en: "We were on a break!", ch: "我們當時在冷靜期！" },
+            { type: "Song", source: "Queen", en: "I want to break free.", ch: "我想要自由。" },
+            { type: "Movie", source: "Titanic", en: "Don't break my heart.", ch: "別傷我的心。" }
+        ]
+    },
+    {
+        word: "Ability",
+        level: "inter",
+        kk: "[əˋbɪlətɪ]",
+        pos: "n.",
+        defEn: "The physical or mental power or skill needed to do something.",
+        defCh: "能力；才能",
+        keyPoint: { title: "Exam Focus", desc: "後面常接不定詞 to V (ability to do something)。", exEn: "She has the ability to solve complex problems.", exCh: "她有解決複雜問題的能力。" },
+        synonyms: [{en: "Capability", ch: "能力"}, {en: "Skill", ch: "技巧"}],
+        antonyms: [{en: "Inability", ch: "無能"}],
+        collocs: [
+            { en: "ability to do", ch: "做某事的能力", sentEn: "She has the ability to learn quickly.", sentCh: "她有快速學習的能力。" },
+            { en: "natural ability", ch: "天賦", sentEn: "He has a natural ability for music.", sentCh: "他有音樂天賦。" }
+        ],
+        media: [
+            { type: "Movie", source: "Spider-Man", en: "With great power comes great responsibility.", ch: "能力越強，責任越大。" },
+            { type: "Book", source: "Harry Potter", en: "It is our choices that show what we truly are, far more than our abilities.", ch: "決定我們成為怎樣的人的，是我們的選擇，而不僅是我們的能力。" }
+        ]
+    },
+    {
+        word: "Advocate",
+        level: "adv",
+        kk: "[ˋædvəkɪt]",
+        pos: "v.",
+        verbForms: "advocate / advocated / advocated",
+        defEn: "To publicly support or suggest an idea.",
+        defCh: "擁護；提倡",
+        keyPoint: { title: "Usage Note", desc: "作動詞時，結構為 Advocate (for) sth。作名詞時，重音在最後音節 -cate /keɪt/。", exEn: "Doctors advocate a healthy lifestyle.", exCh: "醫生提倡健康的生活方式。" },
+        synonyms: [{en: "Support", ch: "支持"}, {en: "Recommend", ch: "推薦"}],
+        antonyms: [{en: "Oppose", ch: "反對"}, {en: "Criticize", ch: "批評"}],
+        collocs: [
+            { en: "strongly advocate", ch: "強力主張", sentEn: "The group strongly advocates for human rights.", sentCh: "該團體強力主張人權。" },
+            { en: "advocate peace", ch: "提倡和平", sentEn: "We must advocate peace in times of war.", sentCh: "戰時我們必須提倡和平。" }
+        ],
+        media: [
+            { type: "Speech", source: "MLK Jr.", en: "I advocate for nonviolence and love.", ch: "我提倡非暴力與愛。" },
+            { type: "Movie", source: "Hunger Games", en: "I advocate for the people of Panem.", ch: "我為施惠國的人民請命。" }
+        ]
+    }
+    ];
 
     function openSettings() {
         document.getElementById('settingsModal').style.display = 'flex';
@@ -244,11 +305,13 @@
         updateFontSizeBtnUI();
     }
     function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
+    
     function changeVoiceSetting(gender) { userSettings.gender = gender; updateVoiceBtnUI(); }
     function updateVoiceBtnUI() {
         document.getElementById('voiceBtnF').classList.toggle('active', userSettings.gender === 'female');
         document.getElementById('voiceBtnM').classList.toggle('active', userSettings.gender === 'male');
     }
+
     function changeFontSize(size) {
         userSettings.fontSize = size;
         document.body.setAttribute('data-fontsize', size);
@@ -260,6 +323,7 @@
         document.getElementById('fsMedium').classList.toggle('active', size === 'medium');
         document.getElementById('fsLarge').classList.toggle('active', size === 'large');
     }
+
     function updateSettings() {
         userSettings.showTrans = document.getElementById('toggleTrans').checked;
         userSettings.showColloc = document.getElementById('toggleColloc').checked;
@@ -464,7 +528,6 @@
         }
     }
 </script>
-<script src="data.js"></script>
 
 </body>
 </html>
