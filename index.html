@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<title>GEPT 結構分離版 v24.0</title>
+<title>GEPT 智慧搜尋版 v25.0</title>
 <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
@@ -23,9 +23,27 @@
 
     html, body { margin: 0; padding: 0; width: 100%; height: 100dvh; overflow: hidden; background-color: #f3f4f6; font-family: 'Nunito', 'Noto Sans TC', sans-serif; }
 
-    /* --- 選單畫面 --- */
+    /* --- 選單畫面 (含搜尋) --- */
     #menuScreen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
-    .menu-title { font-size: 28px; font-weight: 800; color: #1e293b; margin-bottom: 10px; }
+    .menu-title { font-size: 28px; font-weight: 800; color: #1e293b; margin-bottom: 20px; }
+    
+    /* 搜尋框樣式 (New) */
+    .search-container {
+        width: 100%; max-width: 320px; display: flex; gap: 10px; margin-bottom: 30px;
+    }
+    .search-input {
+        flex: 1; padding: 12px 15px; border: none; border-radius: 12px;
+        font-size: 16px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); outline: none;
+        transition: 0.3s;
+    }
+    .search-input:focus { box-shadow: 0 4px 20px rgba(59, 130, 246, 0.2); }
+    .search-btn {
+        background: #3b82f6; color: white; border: none; width: 48px; border-radius: 12px;
+        font-size: 18px; cursor: pointer; box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+        display: flex; align-items: center; justify-content: center; transition: 0.2s;
+    }
+    .search-btn:active { transform: scale(0.95); }
+
     .level-btn { width: 100%; max-width: 320px; padding: 20px; margin-bottom: 15px; border: none; border-radius: 20px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.2s; flex-shrink: 0; }
     .level-btn:active { transform: scale(0.98); }
     .btn-elem { background: linear-gradient(110deg, #10b981 0%, #059669 100%); color: white; }
@@ -49,7 +67,6 @@
     /* 卡片區 */
     .card-stack { width: 94%; max-width: 450px; height: 100%; position: relative; margin: 15px 0; perspective: 1000px; min-height: 0; }
     .card { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: white; border-radius: 24px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1); padding: 0; display: flex; flex-direction: column; transform-origin: 50% 100%; cursor: grab; user-select: none; touch-action: none; overflow: hidden; transition: transform 0.5s ease-out, opacity 0.5s; }
-    .card.cursor-default { cursor: default; }
     .card-content-scroll { flex: 1; overflow-y: auto; padding: 25px 20px 40px 20px; display: flex; flex-direction: column; align-items: flex-start; -webkit-overflow-scrolling: touch; }
 
     /* 按鈕區 */
@@ -73,10 +90,8 @@
     .keypoint-icon { color: #e11d48; font-size: 18px; margin-top: 2px;}
     .keypoint-content { flex: 1; }
     .keypoint-title { font-size: 13px; font-weight: 800; color: #be123c; text-transform: uppercase; margin-bottom: 3px;}
-    
     .keypoint-desc, .def-en, .sent-text-en, .media-text-en, .colloc-en { font-size: var(--fs-content); font-weight: 600; color: #1f2937; line-height: 1.4; }
     .keypoint-ex-en, .def-ch, .sent-text-ch, .media-text-ch, .colloc-ch { font-size: var(--fs-sub); color: #6b7280; font-weight: 500; }
-    
     .keypoint-ex { margin-top: 8px; padding-top: 8px; border-top: 1px dashed #fda4af; }
     .keypoint-ex-en { color: #9f1239; font-style: italic; flex: 1; margin-bottom: 2px;}
     .keypoint-ex-ch { color: #be123c; opacity: 0.9;}
@@ -84,7 +99,6 @@
     .verb-forms-box { background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; padding: 8px 15px; border-radius: 8px; font-size: var(--fs-content); font-weight: 700; margin-top: 10px; display: inline-block; cursor: pointer; transition: transform 0.1s; }
     .verb-forms-box:active { transform: scale(0.95); background: #ffedd5; }
     .verb-label { font-size: 11px; text-transform: uppercase; color: #ea580c; display: block; margin-bottom: 2px; }
-    
     .def-container { text-align: left; background: #f9fafb; padding: 12px; border-radius: 12px; margin-top: 10px; border-left: 4px solid #3b82f6; width: 100%; box-sizing: border-box;}
     .sent-play-btn { background: #f3f4f6; color: #4b5563; border: none; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; font-size: 12px; margin-top: 2px; }
     .sent-play-btn:active { background: #d1d5db; }
@@ -136,6 +150,12 @@
 
 <div id="menuScreen">
     <div class="menu-title">GEPT Vocabulary</div>
+    
+    <div class="search-container">
+        <input type="text" id="searchInput" class="search-input" placeholder="Search words..." onkeypress="handleSearchEnter(event)">
+        <button class="search-btn" onclick="performSearch()"><i class="fas fa-search"></i></button>
+    </div>
+
     <button class="level-btn btn-elem" onclick="startLevel('elem')">
         <div class="text-group"><span class="lvl-name">Elementary</span><span style="font-size:12px; opacity:0.8">初級 (A1-A2)</span></div>
         <i class="fas fa-seedling" style="font-size:24px; opacity:0.8"></i>
@@ -156,315 +176,4 @@
             <button class="back-menu-btn" onclick="returnToMenu()"><i class="fas fa-chevron-left"></i> Menu</button>
             <div class="daily-stats">
                 <div class="stat-pill learned"><i class="fas fa-check-circle"></i><span id="todayLearned">0</span></div>
-                <div class="stat-pill unknown"><i class="fas fa-times-circle"></i><span id="todayUnknown">0</span></div>
-            </div>
-        </div>
-        <div style="display:flex; gap:10px;">
-            <button class="icon-btn" onclick="openCalendar()"><i class="far fa-calendar-alt"></i></button>
-            <button class="icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button>
-        </div>
-    </div>
-
-    <div class="card-stack" id="cardStack"></div>
-
-    <div class="action-buttons">
-        <button class="btn-action btn-unknown" onclick="triggerUnknown()">
-            <span class="btn-emoji">😓</span>
-            <span class="btn-title">還不熟</span>
-            <span class="btn-desc">保留</span>
-        </button>
-        <button class="btn-action btn-known" onclick="triggerKnown()">
-            <span class="btn-emoji">😎</span>
-            <span class="btn-title">已學會</span>
-            <span class="btn-desc">移除</span>
-        </button>
-    </div>
-
-    <div id="finishedView" class="finished-view">
-        <h1 style="font-size: 60px; margin-bottom: 0;">🎉</h1>
-        <h2 style="color:#111827;">恭喜完成！</h2>
-        <button onclick="returnToMenu()" style="background:#3b82f6; color:white; border:none; padding:15px 40px; border-radius:30px; font-size:16px; cursor:pointer; font-weight:bold; margin-top: 20px;">返回選單</button>
-    </div>
-</div>
-
-<div class="modal" id="settingsModal">
-    <div class="modal-content">
-        <div class="modal-header"><div class="modal-title">Settings</div><button class="close-btn" onclick="closeSettings()">&times;</button></div>
-        <div style="margin-bottom: 20px;">
-            <div class="setting-label">Voice Gender</div>
-            <div class="opt-group">
-                <button class="opt-btn active" id="voiceBtnF" onclick="changeVoiceSetting('female')">Female (女)</button>
-                <button class="opt-btn" id="voiceBtnM" onclick="changeVoiceSetting('male')">Male (男)</button>
-            </div>
-        </div>
-        <div style="margin-bottom: 20px;">
-            <div class="setting-label">Font Size</div>
-            <div class="opt-group">
-                <button class="opt-btn" id="fsSmall" onclick="changeFontSize('small')">Small</button>
-                <button class="opt-btn active" id="fsMedium" onclick="changeFontSize('medium')">Medium</button>
-                <button class="opt-btn" id="fsLarge" onclick="changeFontSize('large')">Large</button>
-            </div>
-        </div>
-        <hr style="border:0; border-top:1px solid #f3f4f6; margin: 15px 0;">
-        <div class="setting-item"><span class="setting-label">Usage Note / Trap</span><label class="switch"><input type="checkbox" id="toggleKeyPoint" checked onchange="updateSettings()"><span class="slider"></span></label></div>
-        <div class="setting-item"><span class="setting-label">Chinese Translation</span><label class="switch"><input type="checkbox" id="toggleTrans" checked onchange="updateSettings()"><span class="slider"></span></label></div>
-        <div class="setting-item"><span class="setting-label">Collocations</span><label class="switch"><input type="checkbox" id="toggleColloc" checked onchange="updateSettings()"><span class="slider"></span></label></div>
-        <div class="setting-item"><span class="setting-label">Media Examples</span><label class="switch"><input type="checkbox" id="toggleMedia" checked onchange="updateSettings()"><span class="slider"></span></label></div>
-        <div class="setting-item"><span class="setting-label">Synonyms/Antonyms</span><label class="switch"><input type="checkbox" id="toggleSynAnt" checked onchange="updateSettings()"><span class="slider"></span></label></div>
-    </div>
-</div>
-
-<div class="modal" id="calendarModal">
-    <div class="modal-content">
-        <div class="modal-header"><div class="modal-title" id="calMonthTitle">Calendar</div><button class="close-btn" onclick="closeCalendar()">&times;</button></div>
-        <div class="calendar-grid"><div class="cal-day-name">Sun</div><div class="cal-day-name">Mon</div><div class="cal-day-name">Tue</div><div class="cal-day-name">Wed</div><div class="cal-day-name">Thu</div><div class="cal-day-name">Fri</div><div class="cal-day-name">Sat</div></div>
-        <div class="calendar-grid" id="calGrid"></div>
-    </div>
-</div>
-
-<script>
-    // ==========================================
-    // 程式邏輯
-    // ==========================================
-    let userSettings = { gender: 'female', showTrans: true, showColloc: true, showMedia: true, showSynAnt: true, showKeyPoint: true, fontSize: 'medium' };
-    let studyList = [];
-    let availableVoices = [];
-    const STORAGE_KEY = 'gept_v23_history';
-
-    window.speechSynthesis.onvoiceschanged = function() { availableVoices = window.speechSynthesis.getVoices(); };
-
-    function openSettings() {
-        document.getElementById('settingsModal').style.display = 'flex';
-        document.getElementById('toggleTrans').checked = userSettings.showTrans;
-        document.getElementById('toggleColloc').checked = userSettings.showColloc;
-        document.getElementById('toggleMedia').checked = userSettings.showMedia;
-        document.getElementById('toggleSynAnt').checked = userSettings.showSynAnt;
-        document.getElementById('toggleKeyPoint').checked = userSettings.showKeyPoint;
-        updateVoiceBtnUI();
-        updateFontSizeBtnUI();
-    }
-    function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
-    function changeVoiceSetting(gender) { userSettings.gender = gender; updateVoiceBtnUI(); }
-    function updateVoiceBtnUI() {
-        document.getElementById('voiceBtnF').classList.toggle('active', userSettings.gender === 'female');
-        document.getElementById('voiceBtnM').classList.toggle('active', userSettings.gender === 'male');
-    }
-    function changeFontSize(size) {
-        userSettings.fontSize = size;
-        document.body.setAttribute('data-fontsize', size);
-        updateFontSizeBtnUI();
-    }
-    function updateFontSizeBtnUI() {
-        const size = userSettings.fontSize;
-        document.getElementById('fsSmall').classList.toggle('active', size === 'small');
-        document.getElementById('fsMedium').classList.toggle('active', size === 'medium');
-        document.getElementById('fsLarge').classList.toggle('active', size === 'large');
-    }
-    function updateSettings() {
-        userSettings.showTrans = document.getElementById('toggleTrans').checked;
-        userSettings.showColloc = document.getElementById('toggleColloc').checked;
-        userSettings.showMedia = document.getElementById('toggleMedia').checked;
-        userSettings.showSynAnt = document.getElementById('toggleSynAnt').checked;
-        userSettings.showKeyPoint = document.getElementById('toggleKeyPoint').checked;
-        if (studyList.length > 0) renderCard();
-    }
-
-    function startLevel(level) {
-        studyList = fullDictionary.filter(item => item.level === level);
-        if (studyList.length === 0) { alert("此等級資料庫為空！"); return; }
-        document.getElementById('menuScreen').style.display = 'none';
-        document.getElementById('finishedView').style.display = 'none';
-        document.getElementById('appContainer').style.display = 'grid';
-        renderCard();
-    }
-    function returnToMenu() {
-        document.getElementById('finishedView').style.display = 'none';
-        document.getElementById('appContainer').style.display = 'none';
-        document.getElementById('menuScreen').style.display = 'flex';
-    }
-
-    function renderCard() {
-        const stack = document.getElementById('cardStack');
-        stack.innerHTML = ""; 
-        if (studyList.length === 0) {
-            document.getElementById('finishedView').style.display = 'flex';
-            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
-            return;
-        } else {
-            document.getElementById('finishedView').style.display = 'none';
-        }
-        const data = studyList[0]; 
-        const card = document.createElement('div');
-        card.className = 'card';
-        
-        let verbFormsHTML = (data.pos.includes("v.") && data.verbForms) ? `<div class="verb-forms-box" onclick="speakText('${data.verbForms}')"><span class="verb-label">Verb Forms</span>${data.verbForms}</div>` : "";
-
-        let keyPointHTML = "";
-        if (userSettings.showKeyPoint && data.keyPoint) {
-            let exHTML = "";
-            if(data.keyPoint.exEn) { 
-                exHTML = `
-                <div class="keypoint-ex">
-                    <div class="sent-box" style="align-items: center;">
-                        <button class="sent-play-btn" onclick="speakText('${data.keyPoint.exEn.replace(/'/g, "\\'")}', 0.9)"><i class="fas fa-volume-up"></i></button>
-                        <div class="sent-text-group">
-                            <div class="keypoint-ex-en">"${data.keyPoint.exEn}"</div>
-                            <div class="keypoint-ex-ch">${data.keyPoint.exCh}</div>
-                        </div>
-                    </div>
-                </div>`; 
-            }
-            keyPointHTML = `<div class="keypoint-box"><i class="fas fa-exclamation-triangle keypoint-icon"></i><div class="keypoint-content"><div class="keypoint-title">${data.keyPoint.title}</div><div class="keypoint-desc">${data.keyPoint.desc}</div>${exHTML}</div></div>`;
-        }
-
-        let defChHTML = userSettings.showTrans ? `<div class="def-ch">${data.defCh}</div>` : "";
-
-        let lexicalHTML = "";
-        if (userSettings.showSynAnt) {
-            let synHTML = data.synonyms && data.synonyms.length > 0 ? `<div class="relation-row"><span class="relation-label">Syn</span>${data.synonyms.map(s => `<span class="word-tag tag-syn" onclick="speakText('${s.en}', 0.9); event.stopPropagation();"><span class="tag-en">${s.en}</span>${userSettings.showTrans ? `<span class="tag-ch">${s.ch}</span>` : ''}</span>`).join('')}</div>` : "";
-            let antHTML = data.antonyms && data.antonyms.length > 0 ? `<div class="relation-row"><span class="relation-label">Ant</span>${data.antonyms.map(s => `<span class="word-tag tag-ant" onclick="speakText('${s.en}', 0.9); event.stopPropagation();"><span class="tag-en">${s.en}</span>${userSettings.showTrans ? `<span class="tag-ch">${s.ch}</span>` : ''}</span>`).join('')}</div>` : "";
-            if (synHTML || antHTML) lexicalHTML = `<div class="lexical-box">${synHTML}${antHTML}</div>`;
-        }
-
-        let collocHTML = "";
-        if (userSettings.showColloc && data.collocs && data.collocs.length > 0) {
-            let items = data.collocs.map(c => `
-                <div class="colloc-item">
-                    <div class="colloc-header"><span class="colloc-en">${c.en}</span>${userSettings.showTrans ? `<span class="colloc-ch">${c.ch}</span>` : ''}</div>
-                    <div class="sent-box">
-                        <button class="sent-play-btn" onclick="speakText('${c.sentEn.replace(/'/g, "\\'")}', 0.9)"><i class="fas fa-volume-up"></i></button>
-                        <div class="sent-text-group"><div class="sent-text-en">${c.sentEn}</div>${userSettings.showTrans ? `<div class="sent-text-ch">${c.sentCh}</div>` : ''}</div>
-                    </div>
-                </div>
-            `).join('');
-            collocHTML = `<div class="section-title"><i class="fas fa-link"></i> Collocations</div><div class="colloc-list">${items}</div>`;
-        }
-
-        let mediaHTML = "";
-        if (userSettings.showMedia && data.media && data.media.length > 0) {
-            let items = data.media.map(m => `
-                <div class="media-item">
-                    <div class="media-badge">${m.type}</div><div class="media-source">${m.source}</div>
-                    <div class="sent-box">
-                        <button class="sent-play-btn" onclick="speakText('${m.en.replace(/'/g, "\\'")}', 0.9)"><i class="fas fa-play"></i></button>
-                        <div class="sent-text-group"><div class="media-text-en">"${m.en}"</div>${userSettings.showTrans ? `<div class="media-text-ch">${m.ch}</div>` : ''}</div>
-                    </div>
-                </div>
-            `).join('');
-            mediaHTML = `<div class="section-title"><i class="fas fa-book-open"></i> Context & Media</div><div class="media-list">${items}</div>`;
-        }
-
-        card.innerHTML = `
-            <div class="card-content-scroll">
-                <div class="word-header">
-                    <span class="pos-badge">${data.pos}</span>
-                    <h1 class="word-text" onclick="speakText('${data.word}')">${data.word}</h1>
-                    <div class="kk-text">${data.kk}</div>
-                    ${verbFormsHTML}
-                    <div class="def-container"><div class="def-en">${data.defEn}</div>${defChHTML}</div>
-                    ${keyPointHTML}
-                    ${lexicalHTML}
-                </div>
-                ${collocHTML}
-                ${mediaHTML}
-            </div>
-        `;
-        stack.appendChild(card);
-    }
-
-    function getPreferredVoice() {
-        if (availableVoices.length === 0) availableVoices = window.speechSynthesis.getVoices();
-        const englishVoices = availableVoices.filter(v => v.lang.includes('en'));
-        let keywords = userSettings.gender === 'female' ? ['Google US English', 'Samantha', 'Zira', 'Female'] : ['Google UK English Male', 'David', 'Daniel', 'Male'];
-        for (let key of keywords) {
-            const found = englishVoices.find(v => v.name.includes(key));
-            if (found) return found;
-        }
-        return englishVoices[0] || null;
-    }
-    function speakText(text, rate) {
-        window.speechSynthesis.cancel();
-        const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'en-US';
-        u.rate = rate || 0.85;
-        const bestVoice = getPreferredVoice();
-        if (bestVoice) u.voice = bestVoice;
-        window.speechSynthesis.speak(u);
-    }
-
-    function triggerKnown() {
-        const card = document.querySelector('.card');
-        if(card) {
-            card.style.transform = "translateX(120%) rotate(20deg)";
-            card.style.opacity = "0";
-        }
-        setTimeout(() => { markKnown(); }, 300);
-    }
-
-    function triggerUnknown() {
-        const card = document.querySelector('.card');
-        if(card) {
-            card.style.transform = "translateX(-120%) rotate(-20deg)";
-            card.style.opacity = "0";
-        }
-        setTimeout(() => { markUnknown(); }, 300);
-    }
-
-    function markKnown() { saveProgress('learned'); studyList.shift(); renderCard(); confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 }, colors: ['#10b981', '#34d399'] }); }
-    function markUnknown() { saveProgress('unknown'); const current = studyList.shift(); studyList.push(current); renderCard(); }
-
-    function getHistory() { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
-    function saveProgress(type) {
-        const history = getHistory();
-        const today = new Date().toISOString().split('T')[0];
-        if (!history[today]) history[today] = { learned: 0, unknown: 0 };
-        history[today][type]++;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
-        updateStatsUI();
-    }
-    function updateStatsUI() {
-        const history = getHistory();
-        const today = new Date().toISOString().split('T')[0];
-        const stats = history[today] || { learned: 0, unknown: 0 };
-        document.getElementById('todayLearned').innerText = stats.learned;
-        document.getElementById('todayUnknown').innerText = stats.unknown;
-    }
-
-    function openCalendar() { document.getElementById('calendarModal').style.display = 'flex'; renderCalendar(); }
-    function closeCalendar() { document.getElementById('calendarModal').style.display = 'none'; }
-    window.onclick = function(event) {
-        if (event.target == document.getElementById('calendarModal')) closeCalendar();
-        if (event.target == document.getElementById('settingsModal')) closeSettings();
-    }
-
-    function renderCalendar() {
-        const grid = document.getElementById('calGrid'); grid.innerHTML = "";
-        const now = new Date();
-        const currentMonth = now.getMonth(); const currentYear = now.getFullYear();
-        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-        document.getElementById('calMonthTitle').innerText = `${monthNames[currentMonth]} ${currentYear}`;
-        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
-        const history = getHistory();
-
-        for (let i = 0; i < firstDay; i++) grid.appendChild(document.createElement('div'));
-        for (let day = 1; day <= daysInMonth; day++) {
-            const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
-            const dayData = history[dateStr];
-            const cell = document.createElement('div'); cell.className = 'cal-day';
-            if (day === now.getDate() && currentMonth === now.getMonth()) cell.classList.add('today');
-            cell.innerHTML = `<span>${day}</span>`;
-            if (dayData) {
-                const statsRow = document.createElement('div'); statsRow.className = 'cal-stats-row';
-                if (dayData.learned > 0) statsRow.innerHTML += `<span class="cal-learned">+${dayData.learned}</span>`;
-                if (dayData.unknown > 0) statsRow.innerHTML += `<span class="cal-unknown">-${dayData.unknown}</span>`;
-                cell.appendChild(statsRow);
-            }
-            grid.appendChild(cell);
-        }
-    }
-</script>
-<script src="data.js"></script>
-
-</body>
-</html>
+                <div class="stat-pill unknown"><i class="fas fa-times-circle"></i><span
