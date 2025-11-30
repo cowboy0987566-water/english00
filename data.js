@@ -1,425 +1,737 @@
-// ============================================================
-//  GEPT 單字資料庫 (v24.0 結構分離版)
-//  
-//  使用說明：
-//  1. 此檔案僅存放資料，不包含程式邏輯。
-//  2. 若要新增單字，請複製一個 { ... }, 區塊貼在最後面。
-//  3. 記得每個單字之間要用「逗號 ,」隔開。
-// ============================================================
-
-const fullDictionary = [
-    // ==========================================
-    //  🟢 初級 (Elementary)
+// ==========================================
+    //  🟢 初級 (Elementary) - 10 Words
     // ==========================================
     {
-        word: "Break",
+        word: "Afraid",
         level: "elem",
-        kk: "[brek]",
-        pos: "v.",
-        verbForms: "break / broke / broken",
-        defEn: "To separate into two or more pieces.",
-        defCh: "打破；損壞；休息",
-        keyPoint: { 
-            title: "Trap!", 
-            desc: "作名詞時 'Take a break' 是休息，不是打破東西。", 
-            exEn: "I need to take a break.", 
-            exCh: "我需要休息一下。" 
-        },
-        synonyms: [{en: "Smash", ch: "粉碎"}, {en: "Crack", ch: "裂開"}],
-        antonyms: [{en: "Repair", ch: "修理"}, {en: "Fix", ch: "固定"}],
-        collocs: [
-            { en: "break the law", ch: "違法", sentEn: "He broke the law by stealing.", sentCh: "他因偷竊而違法。" },
-            { en: "take a break", ch: "休息一下", sentEn: "Let's take a break for lunch.", sentCh: "我們休息一下吃午餐吧。" }
-        ],
-        media: [
-            { type: "TV Show", source: "Friends", en: "We were on a break!", ch: "我們當時在冷靜期！" },
-            { type: "Song", source: "Queen", en: "I want to break free.", ch: "我想要自由。" },
-            { type: "Movie", source: "Titanic", en: "Don't break my heart.", ch: "別傷我的心。" }
-        ]
-    },
-    {
-        word: "Time",
-        level: "elem",
-        kk: "[taɪm]",
-        pos: "n.",
-        defEn: "A particular point in the day or minute of an hour.",
-        defCh: "時間；次數；倍數",
-        keyPoint: { 
-            title: "Exam Focus", 
-            desc: "分辨 'On time' (準時) 與 'In time' (及時)。Time 也可以當「倍數」用 (three times 三倍)。", 
-            exEn: "We arrived just in time.", 
-            exCh: "我們剛好及時趕上。" 
-        },
-        synonyms: [{en: "Moment", ch: "時刻"}, {en: "Period", ch: "期間"}],
-        antonyms: [],
-        collocs: [
-            { en: "spend time", ch: "花時間", sentEn: "I spend time with my family.", sentCh: "我花時間陪伴家人。" },
-            { en: "on time", ch: "準時", sentEn: "The train arrived on time.", sentCh: "火車準時抵達。" }
-        ],
-        media: [
-            { type: "Movie", source: "In Time", en: "For a few to be immortal, many must die.", ch: "為了讓少數人永生，多數人必須犧牲。" },
-            { type: "Song", source: "Cyndi Lauper", en: "If you're lost you can look and you will find me, time after time.", ch: "如果你迷路了，只要尋找就能發現我，一次又一次。" }
-        ]
-    },
-    {
-        word: "Call",
-        level: "elem",
-        kk: "[kɔl]",
-        pos: "v.",
-        verbForms: "call / called / called",
-        defEn: "To give someone or something a name, or to speak to someone by phone.",
-        defCh: "打電話；稱呼；呼叫",
-        keyPoint: { 
-            title: "Usage Note", 
-            desc: "Call 還有「稱呼」的意思。結構：Call + O + OC (稱呼某人為...)", 
-            exEn: "Please call me Andy.", 
-            exCh: "請叫我安迪。" 
-        },
-        synonyms: [{en: "Phone", ch: "打電話"}, {en: "Name", ch: "命名"}],
-        antonyms: [],
-        collocs: [
-            { en: "make a call", ch: "打電話", sentEn: "I need to make a phone call.", sentCh: "我需要打個電話。" },
-            { en: "call off", ch: "取消", sentEn: "They called off the meeting.", sentCh: "他們取消了會議。" }
-        ],
-        media: [
-            { type: "Song", source: "Carly Rae Jepsen", en: "Here's my number, so call me, maybe.", ch: "這是我的號碼，或許打給我吧。" },
-            { type: "Movie", source: "Ghostbusters", en: "Who you gonna call? Ghostbusters!", ch: "你要打給誰？魔鬼剋星！" }
-        ]
-    },
-    {
-        word: "Happy",
-        level: "elem",
-        kk: "[ˋhæpɪ]",
+        kk: "[əˋfred]",
         pos: "adj.",
-        defEn: "Feeling, showing, or causing pleasure or satisfaction.",
-        defCh: "快樂的；幸福的",
+        defEn: "Feeling fear, or worried about something.",
+        defCh: "害怕的；擔心的",
         keyPoint: { 
             title: "Collocation", 
-            desc: "Happy with (對...滿意)。Happy to V (很高興做...)", 
-            exEn: "I am happy to help you.", 
-            exCh: "我很樂意幫助你。" 
+            desc: "Afraid of + Noun/V-ing (害怕某事)。", 
+            exEn: "She is afraid of spiders.", 
+            exCh: "她很怕蜘蛛。" 
         },
-        synonyms: [{en: "Glad", ch: "高興的"}, {en: "Joyful", ch: "喜悅的"}],
-        antonyms: [{en: "Sad", ch: "難過的"}, {en: "Unhappy", ch: "不快樂的"}],
+        synonyms: [{en: "Scared", ch: "驚恐的"}, {en: "Frightened", ch: "受驚的"}],
+        antonyms: [{en: "Brave", ch: "勇敢的"}, {en: "Confident", ch: "自信的"}],
         collocs: [
-            { en: "happy ending", ch: "快樂結局", sentEn: "I love movies with a happy ending.", sentCh: "我喜歡有快樂結局的電影。" },
-            { en: "happy for you", ch: "為你高興", sentEn: "I'm so happy for you!", sentCh: "我真為你感到高興！" }
+            { en: "afraid of the dark", ch: "怕黑", sentEn: "Many children are afraid of the dark.", sentCh: "許多小孩怕黑。" },
+            { en: "afraid to ask", ch: "不敢問", sentEn: "Don't be afraid to ask questions.", sentCh: "別不敢問問題。" }
         ],
         media: [
-            { type: "Song", source: "Pharrell Williams", en: "Because I'm happy, clap along if you feel like a room without a roof.", ch: "因為我很快樂，如果你覺得像在沒有屋頂的房間般自由，就跟著拍手吧。" }
+            { type: "Movie", source: "The Sixth Sense", en: "I'm ready to communicate with you now. I'm not afraid.", ch: "我準備好跟你溝通了，我不害怕。" },
+            { type: "Song", source: "Eminem - Not Afraid", en: "I'm not afraid to take a stand.", ch: "我不害怕表明立場。" }
         ]
     },
     {
-        word: "Abroad",
+        word: "Agree",
         level: "elem",
-        kk: "[əˋbrɔd]",
-        pos: "adv.",
-        defEn: "In or to a foreign country.",
-        defCh: "在國外；到國外",
-        keyPoint: { 
-            title: "Grammar", 
-            desc: "Abroad 是副詞，前面不加介系詞 (不能說 go to abroad，要說 go abroad)。", 
-            exEn: "She plans to study abroad.", 
-            exCh: "她計畫出國留學。" 
-        },
-        synonyms: [{en: "Overseas", ch: "海外"}],
-        antonyms: [{en: "Home", ch: "國內/家"}],
-        collocs: [
-            { en: "go abroad", ch: "出國", sentEn: "We want to go abroad for vacation.", sentCh: "我們想出國度假。" },
-            { en: "study abroad", ch: "留學", sentEn: "Studying abroad is a great experience.", sentCh: "留學是很棒的經驗。" }
-        ],
-        media: [
-            { type: "Movie", source: "Spider-Man: Far From Home", en: "I'm going abroad, to Europe.", ch: "我要出國了，去歐洲。" }
-        ]
-    },
-    {
-        word: "Absent",
-        level: "elem",
-        kk: "[ˋæbsənt]",
-        pos: "adj.",
-        defEn: "Not in the place where you are expected to be.",
-        defCh: "缺席的；不在場的",
-        keyPoint: { 
-            title: "Usage", 
-            desc: "常搭配介系詞 from (absent from school/work)。", 
-            exEn: "He was absent from school yesterday.", 
-            exCh: "他昨天缺課。" 
-        },
-        synonyms: [{en: "Missing", ch: "失蹤的"}, {en: "Away", ch: "不在的"}],
-        antonyms: [{en: "Present", ch: "出席的"}],
-        collocs: [
-            { en: "absent from", ch: "缺席...", sentEn: "Why were you absent from the meeting?", sentCh: "你為什麼缺席會議？" },
-            { en: "absent-minded", ch: "心不在焉的", sentEn: "He is very absent-minded today.", sentCh: "他今天很心不在焉。" }
-        ],
-        media: [
-            { type: "Movie", source: "Ferris Bueller's Day Off", en: "Bueller?... Bueller?... He's absent.", ch: "布勒？...布勒？...他缺席了。" }
-        ]
-    },
-    {
-        word: "Accept",
-        level: "elem",
-        kk: "[əkˋsɛpt]",
+        kk: "[əˋgri]",
         pos: "v.",
-        verbForms: "accept / accepted / accepted",
-        defEn: "To agree to take something.",
-        defCh: "接受；答應；接納",
+        verbForms: "agree / agreed / agreed",
+        defEn: "To have the same opinion.",
+        defCh: "同意；贊成",
+        keyPoint: { 
+            title: "Usage Note", 
+            desc: "Agree with (人/意見)；Agree on (某事/決定)。", 
+            exEn: "I agree with you completely.", 
+            exCh: "我完全同意你。" 
+        },
+        synonyms: [{en: "Consent", ch: "同意"}, {en: "Concur", ch: "一致"}],
+        antonyms: [{en: "Disagree", ch: "不同意"}, {en: "Argue", ch: "爭論"}],
+        collocs: [
+            { en: "agree with", ch: "同意(某人)", sentEn: "I agree with your decision.", sentCh: "我同意你的決定。" },
+            { en: "couldn't agree more", ch: "再同意不過", sentEn: "I couldn't agree more!", sentCh: "我完全贊同！" }
+        ],
+        media: [
+            { type: "Movie", source: "Pirates of the Caribbean", en: "We have an accord? Agreed.", ch: "我們達成協議了嗎？同意。" },
+            { type: "Song", source: "Fifth Harmony", en: "We don't have to agree on everything.", ch: "我們不必每件事都意見一致。" }
+        ]
+    },
+    {
+        word: "Angry",
+        level: "elem",
+        kk: "[ˋæŋgrɪ]",
+        pos: "adj.",
+        defEn: "Having a strong feeling against someone who has behaved badly.",
+        defCh: "生氣的；憤怒的",
+        keyPoint: { 
+            title: "Preposition", 
+            desc: "Angry at/with (someone)；Angry about (something)。", 
+            exEn: "She was angry with me for being late.", 
+            exCh: "她因為我遲到而生我的氣。" 
+        },
+        synonyms: [{en: "Mad", ch: "發瘋的/生氣的"}, {en: "Furious", ch: "狂怒的"}],
+        antonyms: [{en: "Calm", ch: "冷靜的"}, {en: "Happy", ch: "快樂的"}],
+        collocs: [
+            { en: "get angry", ch: "生氣", sentEn: "Don't get angry over small things.", sentCh: "別為小事生氣。" },
+            { en: "angry look", ch: "憤怒的表情", sentEn: "He gave me an angry look.", sentCh: "他瞪了我一眼。" }
+        ],
+        media: [
+            { type: "Movie", source: "The Avengers", en: "That's my secret, Captain. I'm always angry.", ch: "那是我的秘密，隊長。我隨時都在生氣。" },
+            { type: "Book", source: "Angry Birds", en: "Whatever you do, don't make them angry.", ch: "無論你做什麼，別惹他們生氣。" }
+        ]
+    },
+    {
+        word: "Arrive",
+        level: "elem",
+        kk: "[əˋraɪv]",
+        pos: "v.",
+        verbForms: "arrive / arrived / arrived",
+        defEn: "To reach a place, especially at the end of a journey.",
+        defCh: "到達；抵達",
+        keyPoint: { 
+            title: "Exam Focus", 
+            desc: "Arrive in + 大地方 (國家/城市)；Arrive at + 小地點 (車站/機場)。", 
+            exEn: "We arrived at the station at noon.", 
+            exCh: "我們中午抵達車站。" 
+        },
+        synonyms: [{en: "Reach", ch: "到達"}, {en: "Get to", ch: "抵達"}],
+        antonyms: [{en: "Depart", ch: "出發"}, {en: "Leave", ch: "離開"}],
+        collocs: [
+            { en: "arrive early", ch: "提早到達", sentEn: "It's better to arrive early.", sentCh: "提早到達比較好。" },
+            { en: "arrive safe", ch: "平安抵達", sentEn: "Call me when you arrive safe.", sentCh: "平安抵達時打給我。" }
+        ],
+        media: [
+            { type: "Movie", source: "Back to the Future", en: "Marty, you've arrived!", ch: "馬蒂，你到了！" },
+            { type: "Song", source: "Linkin Park", en: "When my time comes to arrive.", ch: "當我的時刻來臨時。" }
+        ]
+    },
+    {
+        word: "Believe",
+        level: "elem",
+        kk: "[bəˋliv]",
+        pos: "v.",
+        verbForms: "believe / believed / believed",
+        defEn: "To think that something is true, correct, or real.",
+        defCh: "相信；認為",
+        keyPoint: { 
+            title: "Nuance", 
+            desc: "Believe (相信某人的話) vs. Believe in (信任/信仰/相信某人的存在)。", 
+            exEn: "I believe in ghosts.", 
+            exCh: "我相信鬼魂存在。" 
+        },
+        synonyms: [{en: "Trust", ch: "信任"}, {en: "Think", ch: "認為"}],
+        antonyms: [{en: "Doubt", ch: "懷疑"}, {en: "Distrust", ch: "不信任"}],
+        collocs: [
+            { en: "believe it or not", ch: "信不信由你", sentEn: "Believe it or not, I won the lottery.", sentCh: "信不信由你，我中了樂透。" },
+            { en: "hard to believe", ch: "難以置信", sentEn: "It's hard to believe he is 50.", sentCh: "很難相信他已經50歲了。" }
+        ],
+        media: [
+            { type: "Movie", source: "The Polar Express", en: "Seeing is believing, but sometimes the most real things in the world are the things we can't see.", ch: "眼見為憑，但有時世上最真實的事物是我們看不見的。" },
+            { type: "Song", source: "Imagine Dragons", en: "Believer, believer.", ch: "信徒，信徒。" }
+        ]
+    },
+    {
+        word: "Borrow",
+        level: "elem",
+        kk: "[ˋbɑro]",
+        pos: "v.",
+        verbForms: "borrow / borrowed / borrowed",
+        defEn: "To get or receive something from someone with the intention of returning it.",
+        defCh: "借入；借用",
         keyPoint: { 
             title: "Confusing Words", 
-            desc: "Accept (接受) vs. Except (除了...之外)。發音很像但意思不同。", 
-            exEn: "I accept your gift, except the card.", 
-            exCh: "我收下你的禮物，除了那張卡片。" 
+            desc: "Borrow (借入) vs. Lend (借出)。Borrow 'from' someone; Lend 'to' someone.", 
+            exEn: "Can I borrow a pen from you?", 
+            exCh: "我可以跟你借枝筆嗎？" 
         },
-        synonyms: [{en: "Receive", ch: "收到"}, {en: "Agree", ch: "同意"}],
-        antonyms: [{en: "Refuse", ch: "拒絕"}, {en: "Reject", ch: "駁回"}],
+        synonyms: [{en: "Take", ch: "拿取"}, {en: "Use", ch: "使用"}],
+        antonyms: [{en: "Lend", ch: "借出"}, {en: "Return", ch: "歸還"}],
         collocs: [
-            { en: "accept an apology", ch: "接受道歉", sentEn: "Please accept my apology.", sentCh: "請接受我的道歉。" },
-            { en: "accept a challenge", ch: "接受挑戰", sentEn: "Are you ready to accept the challenge?", sentCh: "你準備好接受挑戰了嗎？" }
+            { en: "borrow money", ch: "借錢", sentEn: "He had to borrow money to buy the car.", sentCh: "他必須借錢買車。" },
+            { en: "borrow books", ch: "借書", sentEn: "You can borrow books from the library.", sentCh: "你可以從圖書館借書。" }
         ],
         media: [
-            { type: "Movie", source: "Twilight", en: "I've accepted that.", ch: "我已經接受了這個事實。" },
-            { type: "Song", source: "Lady Gaga", en: "I'm on the right track, baby, I was born this way.", ch: "我走在正道上，寶貝，我生來如此（自我接納）。" }
+            { type: "Movie", source: "The Secret World of Arrietty", en: "We are borrowers.", ch: "我們是借物一族。" }
         ]
     },
     {
-        word: "Accident",
+        word: "Bright",
         level: "elem",
-        kk: "[ˋæksədənt]",
-        pos: "n.",
-        defEn: "Something bad that happens that is not expected or intended.",
-        defCh: "意外事故；偶然",
-        keyPoint: { 
-            title: "Collocation", 
-            desc: "By accident (偶然地) = By chance。相反詞是 On purpose (故意地)。", 
-            exEn: "We met by accident.", 
-            exCh: "我們偶然相遇。" 
-        },
-        synonyms: [{en: "Crash", ch: "撞車"}, {en: "Mishap", ch: "不幸事故"}],
-        antonyms: [{en: "Plan", ch: "計畫"}, {en: "Intent", ch: "意圖"}],
-        collocs: [
-            { en: "car accident", ch: "車禍", sentEn: "He was injured in a car accident.", sentCh: "他在車禍中受傷了。" },
-            { en: "by accident", ch: "意外地", sentEn: "I deleted the file by accident.", sentCh: "我不小心刪掉了檔案。" }
-        ],
-        media: [
-            { type: "Movie", source: "Kung Fu Panda", en: "There are no accidents.", ch: "世上沒有意外。" }
-        ]
-    },
-    {
-        word: "Active",
-        level: "elem",
-        kk: "[ˋæktɪv]",
+        kk: "[braɪt]",
         pos: "adj.",
-        defEn: "Busy with a particular activity.",
-        defCh: "活躍的；積極的",
+        defEn: "Full of light, shining; intelligent.",
+        defCh: "明亮的；聰明的",
+        keyPoint: { 
+            title: "Multiple Meanings", 
+            desc: "除了「明亮」，Bright 也常用來形容人「聰明、伶俐」。", 
+            exEn: "She is a bright student.", 
+            exCh: "她是個聰明的學生。" 
+        },
+        synonyms: [{en: "Shining", ch: "閃耀的"}, {en: "Smart", ch: "聰明的"}],
+        antonyms: [{en: "Dark", ch: "黑暗的"}, {en: "Dull", ch: "暗淡的/愚笨的"}],
+        collocs: [
+            { en: "bright future", ch: "光明的未來", sentEn: "You have a bright future ahead.", sentCh: "你的前途一片光明。" },
+            { en: "bright idea", ch: "好主意", sentEn: "Who had this bright idea?", sentCh: "這是誰想出的好主意？" }
+        ],
+        media: [
+            { type: "Song", source: "Rihanna", en: "Shine bright like a diamond.", ch: "像鑽石一樣閃耀光芒。" },
+            { type: "Book", source: "Harry Potter", en: "Happiness can be found, even in the darkest of times, if one only remembers to turn on the light.", ch: "即使在最黑暗的時候，只要記得開燈（尋找光明），也能找到快樂。" }
+        ]
+    },
+    {
+        word: "Bring",
+        level: "elem",
+        kk: "[brɪŋ]",
+        pos: "v.",
+        verbForms: "bring / brought / brought",
+        defEn: "To take or carry someone or something to a place or a person.",
+        defCh: "帶來；拿來",
+        keyPoint: { 
+            title: "Confusing Words", 
+            desc: "Bring (帶來這裡) vs. Take (帶去那裡)。方向性不同。", 
+            exEn: "Please bring me the menu.", 
+            exCh: "請把菜單拿給我。" 
+        },
+        synonyms: [{en: "Carry", ch: "攜帶"}, {en: "Fetch", ch: "拿來"}],
+        antonyms: [{en: "Take", ch: "帶走"}, {en: "Remove", ch: "移除"}],
+        collocs: [
+            { en: "bring up", ch: "撫養/提出", sentEn: "She brought up three children.", sentCh: "她撫養了三個孩子。" },
+            { en: "bring back", ch: "帶回", sentEn: "Please bring back my book.", sentCh: "請把我的書帶回來。" }
+        ],
+        media: [
+            { type: "Movie", source: "Bring It On", en: "Bring it on!", ch: "放馬過來吧！" },
+            { type: "Song", source: "The Beatles", en: "Can't Buy Me Love", ch: "錢買不到愛（歌詞提及 money can't buy...）。" }
+        ]
+    },
+    {
+        word: "Busy",
+        level: "elem",
+        kk: "[ˋbɪzɪ]",
+        pos: "adj.",
+        defEn: "If you are busy, you are working hard, or giving your attention to a particular thing.",
+        defCh: "忙碌的；繁忙的",
         keyPoint: { 
             title: "Grammar", 
-            desc: "Active Voice (主動語態) vs. Passive Voice (被動語態)。", 
-            exEn: "Stay active to be healthy.", 
-            exCh: "保持活躍以維持健康。" 
+            desc: "Busy 後面接動作時，要用 V-ing (be busy doing something)。", 
+            exEn: "I am busy preparing for the exam.", 
+            exCh: "我正忙著準備考試。" 
         },
-        synonyms: [{en: "Energetic", ch: "精力充沛的"}, {en: "Lively", ch: "活潑的"}],
-        antonyms: [{en: "Passive", ch: "被動的"}, {en: "Lazy", ch: "懶惰的"}],
+        synonyms: [{en: "Occupied", ch: "佔用的"}, {en: "Active", ch: "活躍的"}],
+        antonyms: [{en: "Free", ch: "空閒的"}, {en: "Idle", ch: "閒置的"}],
         collocs: [
-            { en: "active part", ch: "積極參與", sentEn: "She took an active part in the discussion.", sentCh: "她積極參與討論。" },
-            { en: "stay active", ch: "保持活力", sentEn: "My grandfather tries to stay active.", sentCh: "我祖父試著保持活力。" }
+            { en: "busy line", ch: "電話佔線", sentEn: "The line is busy right now.", sentCh: "現在電話佔線中。" },
+            { en: "keep busy", ch: "保持忙碌", sentEn: "I try to keep busy.", sentCh: "我試著讓自己保持忙碌。" }
         ],
         media: [
-            { type: "Song", source: "Imagine Dragons", en: "I'm waking up, I feel it in my bones.", ch: "我醒來了，感覺深入骨髓。" }
-        ]
-    },
-
-    // ==========================================
-    //  🟡 中級 (Intermediate)
-    // ==========================================
-    {
-        word: "Ability",
-        level: "inter",
-        kk: "[əˋbɪlətɪ]",
-        pos: "n.",
-        defEn: "The physical or mental power or skill needed to do something.",
-        defCh: "能力；才能",
-        keyPoint: { 
-            title: "Exam Focus", 
-            desc: "後面常接不定詞 to V (ability to do something)，不可接 V-ing。", 
-            exEn: "She has the ability to solve complex problems.", 
-            exCh: "她有解決複雜問題的能力。" 
-        },
-        synonyms: [{en: "Capability", ch: "能力"}, {en: "Skill", ch: "技巧"}],
-        antonyms: [{en: "Inability", ch: "無能"}],
-        collocs: [
-            { en: "ability to do", ch: "做某事的能力", sentEn: "She has the ability to learn quickly.", sentCh: "她有快速學習的能力。" },
-            { en: "natural ability", ch: "天賦", sentEn: "He has a natural ability for music.", sentCh: "他有音樂天賦。" }
-        ],
-        media: [
-            { type: "Movie", source: "Spider-Man", en: "With great power comes great responsibility.", ch: "能力越強，責任越大。" },
-            { type: "Book", source: "Harry Potter", en: "It is our choices that show what we truly are, far more than our abilities.", ch: "決定我們成為怎樣的人的，是我們的選擇，而不僅是我們的能力。" }
+            { type: "Movie", source: "The Devil Wears Prada", en: "Am I reaching for the stars here? Not really. I'm just busy.", ch: "我是在摘星嗎？不盡然。我只是很忙。" }
         ]
     },
     {
-        word: "Advantage",
-        level: "inter",
-        kk: "[ədˋvæntɪdʒ]",
-        pos: "n.",
-        defEn: "A condition giving a greater chance of success.",
-        defCh: "優勢；好處；利益",
+        word: "Buy",
+        level: "elem",
+        kk: "[baɪ]",
+        pos: "v.",
+        verbForms: "buy / bought / bought",
+        defEn: "To get something by paying money for it.",
+        defCh: "買；購買",
         keyPoint: { 
             title: "Phrase", 
-            desc: "Take advantage of (利用、佔便宜)。這是考試超高頻片語。", 
-            exEn: "You should take advantage of this opportunity.", 
-            exCh: "你應該利用這個機會。" 
+            desc: "Buy time (爭取時間)；Buy it (相信某事 - 口語)。", 
+            exEn: "I don't buy his story.", 
+            exCh: "我不相信他的說詞。" 
         },
-        synonyms: [{en: "Benefit", ch: "利益"}, {en: "Edge", ch: "優勢"}],
-        antonyms: [{en: "Disadvantage", ch: "劣勢"}, {en: "Drawback", ch: "缺點"}],
+        synonyms: [{en: "Purchase", ch: "購買"}, {en: "Get", ch: "獲得"}],
+        antonyms: [{en: "Sell", ch: "賣"}],
         collocs: [
-            { en: "competitive advantage", ch: "競爭優勢", sentEn: "Quality gives us a competitive advantage.", sentCh: "品質給了我們競爭優勢。" },
-            { en: "to one's advantage", ch: "對某人有利", sentEn: "The delay worked to our advantage.", sentCh: "延誤反而對我們有利。" }
+            { en: "buy online", ch: "網購", sentEn: "It's cheaper to buy online.", sentCh: "網購比較便宜。" },
+            { en: "buy one get one free", ch: "買一送一", sentEn: "There is a buy one get one free offer.", sentCh: "現在有買一送一的優惠。" }
         ],
         media: [
-            { type: "Movie", source: "The Perks of Being a Wallflower", en: "We accept the love we think we deserve.", ch: "我們接受我們認為自己配得上的愛。" }
-        ]
-    },
-    {
-        word: "Avoid",
-        level: "inter",
-        kk: "[əˋvɔɪd]",
-        pos: "v.",
-        verbForms: "avoid / avoided / avoided",
-        defEn: "To stay away from someone or something.",
-        defCh: "避免；避開",
-        keyPoint: { 
-            title: "Grammar Trap", 
-            desc: "Avoid 後面必須接 V-ing (動名詞)，不可以接 to V。", 
-            exEn: "He avoided answering the question.", 
-            exCh: "他避開回答這個問題。" 
-        },
-        synonyms: [{en: "Escape", ch: "逃避"}, {en: "Prevent", ch: "預防"}],
-        antonyms: [{en: "Face", ch: "面對"}, {en: "Confront", ch: "對抗"}],
-        collocs: [
-            { en: "avoid mistakes", ch: "避免錯誤", sentEn: "Check your work to avoid mistakes.", sentCh: "檢查你的工作以避免錯誤。" },
-            { en: "avoid contact", ch: "避免接觸", sentEn: "Avoid eye contact with the angry dog.", sentCh: "避免跟那隻憤怒的狗有眼神接觸。" }
-        ],
-        media: [
-            { type: "Song", source: "The Fray", en: "Step one, you say we need to talk. He walks, you say sit down, it's just a talk.", ch: "第一步，你說我們需要談談。" }
-        ]
-    },
-    {
-        word: "Career",
-        level: "inter",
-        kk: "[kəˋrɪr]",
-        pos: "n.",
-        defEn: "The job or series of jobs that you do during your working life.",
-        defCh: "職業生涯；事業",
-        keyPoint: { 
-            title: "Usage Note", 
-            desc: "Career 通常指長期的「職涯」或「事業」，而 Job 通常指單一份「工作」。", 
-            exEn: "He wants to pursue a career in medicine.", 
-            exCh: "他想從事醫學事業。" 
-        },
-        synonyms: [{en: "Profession", ch: "專業"}, {en: "Occupation", ch: "職業"}],
-        antonyms: [],
-        collocs: [
-            { en: "career path", ch: "職涯路徑", sentEn: "She is planning her career path.", sentCh: "她正在規劃她的職涯路徑。" },
-            { en: "change careers", ch: "轉行", sentEn: "It's never too late to change careers.", sentCh: "轉行永遠不嫌晚。" }
-        ],
-        media: [
-            { type: "Movie", source: "The Devil Wears Prada", en: "A million girls would kill for this job.", ch: "百萬個女孩願意為了這份工作去殺人。" }
+            { type: "Song", source: "The Beatles", en: "Money can't buy me love.", ch: "金錢買不到我的愛。" },
+            { type: "Movie", source: "We Bought a Zoo", en: "We bought a zoo.", ch: "我們買了一座動物園。" }
         ]
     },
 
     // ==========================================
-    //  🟣 高級 (Advanced)
+    //  🟡 中級 (Intermediate) - 10 Words
     // ==========================================
     {
-        word: "Advocate",
-        level: "adv",
-        kk: "[ˋædvəkɪt]",
+        word: "Absorb",
+        level: "inter",
+        kk: "[əbˋsɔrb]",
         pos: "v.",
-        verbForms: "advocate / advocated / advocated",
-        defEn: "To publicly support or suggest an idea.",
-        defCh: "擁護；提倡",
+        verbForms: "absorb / absorbed / absorbed",
+        defEn: "To take something in, especially gradually.",
+        defCh: "吸收；理解；使全神貫注",
         keyPoint: { 
-            title: "Usage Note", 
-            desc: "作動詞時，結構為 Advocate (for) sth。作名詞時，重音在最後音節 -cate /keɪt/。", 
-            exEn: "Doctors advocate a healthy lifestyle.", 
-            exCh: "醫生提倡健康的生活方式。" 
+            title: "Collocation", 
+            desc: "Be absorbed in (全神貫注於...)", 
+            exEn: "He was absorbed in his book.", 
+            exCh: "他全神貫注在書本裡。" 
         },
-        synonyms: [{en: "Support", ch: "支持"}, {en: "Recommend", ch: "推薦"}],
-        antonyms: [{en: "Oppose", ch: "反對"}, {en: "Criticize", ch: "批評"}],
+        synonyms: [{en: "Soak up", ch: "吸收"}, {en: "Engage", ch: "佔用(注意力)"}],
+        antonyms: [{en: "Emit", ch: "散發"}, {en: "Reflect", ch: "反射"}],
         collocs: [
-            { en: "strongly advocate", ch: "強力主張", sentEn: "The group strongly advocates for human rights.", sentCh: "該團體強力主張人權。" },
-            { en: "advocate peace", ch: "提倡和平", sentEn: "We must advocate peace in times of war.", sentCh: "戰時我們必須提倡和平。" }
+            { en: "absorb information", ch: "吸收資訊", sentEn: "It's hard to absorb so much information at once.", sentCh: "很難一次吸收這麼多資訊。" },
+            { en: "shock absorber", ch: "避震器", sentEn: "The car needs new shock absorbers.", sentCh: "這輛車需要新的避震器。" }
         ],
         media: [
-            { type: "Speech", source: "MLK Jr.", en: "I advocate for nonviolence and love.", ch: "我提倡非暴力與愛。" },
-            { type: "Movie", source: "Hunger Games", en: "I advocate for the people of Panem.", ch: "我為施惠國的人民請命。" }
+            { type: "Documentary", source: "Planet Earth", en: "Plants absorb sunlight.", ch: "植物吸收陽光。" }
         ]
     },
     {
-        word: "Ambiguous",
-        level: "adv",
-        kk: "[æmˋbɪgjʊəs]",
+        word: "Abstract",
+        level: "inter",
+        kk: "[ˋæbstrækt]",
         pos: "adj.",
-        defEn: "Having or expressing more than one possible meaning, sometimes intentionally.",
-        defCh: "模稜兩可的；含糊不清的",
+        defEn: "Existing as an idea, feeling, or quality, not as a material object.",
+        defCh: "抽象的",
+        keyPoint: { 
+            title: "Contrast", 
+            desc: "相反詞是 Concrete (具體的)。", 
+            exEn: "Truth and beauty are abstract concepts.", 
+            exCh: "真理與美是抽象的概念。" 
+        },
+        synonyms: [{en: "Theoretical", ch: "理論的"}, {en: "Conceptual", ch: "概念的"}],
+        antonyms: [{en: "Concrete", ch: "具體的"}, {en: "Tangible", ch: "有形的"}],
+        collocs: [
+            { en: "abstract art", ch: "抽象藝術", sentEn: "I don't understand abstract art.", sentCh: "我不懂抽象藝術。" },
+            { en: "abstract thinking", ch: "抽象思考", sentEn: "Math requires abstract thinking.", sentCh: "數學需要抽象思考。" }
+        ],
+        media: [
+            { type: "Movie", source: "Inside Out", en: "We are in Abstract Thought.", ch: "我們進入了抽象思考區。" }
+        ]
+    },
+    {
+        word: "Access",
+        level: "inter",
+        kk: "[ˋæksɛs]",
+        pos: "n. / v.",
+        verbForms: "access / accessed / accessed",
+        defEn: "The method or possibility of getting near to a place or person.",
+        defCh: "進入；使用權；存取",
+        keyPoint: { 
+            title: "Grammar", 
+            desc: "作名詞時，常搭配 to (access to something)；作動詞時直接接受詞 (access the internet)。", 
+            exEn: "Do you have access to the internet?", 
+            exCh: "你能上網嗎？" 
+        },
+        synonyms: [{en: "Entry", ch: "進入"}, {en: "Approach", ch: "途徑"}],
+        antonyms: [{en: "Exit", ch: "出口"}],
+        collocs: [
+            { en: "gain access", ch: "獲得權限", sentEn: "Hackers gained access to the system.", sentCh: "駭客入侵了系統。" },
+            { en: "easy access", ch: "交通便利/易取得", sentEn: "The hotel has easy access to the beach.", sentCh: "這飯店去海灘很方便。" }
+        ],
+        media: [
+            { type: "Movie", source: "Hackers", en: "Access denied.", ch: "存取被拒。" },
+            { type: "Song", source: "Daft Punk", en: "Random Access Memories.", ch: "隨機存取記憶體（專輯名）。" }
+        ]
+    },
+    {
+        word: "Accompany",
+        level: "inter",
+        kk: "[əˋkʌmpənɪ]",
+        pos: "v.",
+        verbForms: "accompany / accompanied / accompanied",
+        defEn: "To go with someone or to be provided or exist at the same time as something.",
+        defCh: "陪同；伴隨；伴奏",
+        keyPoint: { 
+            title: "Usage", 
+            desc: "比較正式的用字，口語常說 'go with'。", 
+            exEn: "May I accompany you home?", 
+            exCh: "我可以陪你回家嗎？" 
+        },
+        synonyms: [{en: "Escort", ch: "護送"}, {en: "Go with", ch: "與...同行"}],
+        antonyms: [{en: "Leave", ch: "離開"}, {en: "Abandon", ch: "拋棄"}],
+        collocs: [
+            { en: "accompany someone", ch: "陪伴某人", sentEn: "Children must be accompanied by an adult.", sentCh: "兒童須由成人陪同。" },
+            { en: "piano accompaniment", ch: "鋼琴伴奏", sentEn: "She sang to a piano accompaniment.", sentCh: "她在鋼琴伴奏下演唱。" }
+        ],
+        media: [
+            { type: "Movie", source: "Lord of the Rings", en: "I will accompany you.", ch: "我會陪你去。" }
+        ]
+    },
+    {
+        word: "Accurate",
+        level: "inter",
+        kk: "[ˋækjərɪt]",
+        pos: "adj.",
+        defEn: "Correct, exact, and without any mistakes.",
+        defCh: "準確的；精確的",
+        keyPoint: { 
+            title: "Word Choice", 
+            desc: "Accurate (數據/描述準確) vs Correct (正確無誤)。", 
+            exEn: "The report is accurate.", 
+            exCh: "這份報告很準確。" 
+        },
+        synonyms: [{en: "Precise", ch: "精密的"}, {en: "Correct", ch: "正確的"}],
+        antonyms: [{en: "Inaccurate", ch: "不準確的"}, {en: "Wrong", ch: "錯誤的"}],
+        collocs: [
+            { en: "accurate description", ch: "準確的描述", sentEn: "He gave an accurate description of the thief.", sentCh: "他對小偷做了準確的描述。" },
+            { en: "historically accurate", ch: "符合史實的", sentEn: "Is this movie historically accurate?", sentCh: "這部電影符合史實嗎？" }
+        ],
+        media: [
+            { type: "Movie", source: "The Social Network", en: "I need to know that the data is accurate.", ch: "我必須確認數據是準確的。" }
+        ]
+    },
+    {
+        word: "Achieve",
+        level: "inter",
+        kk: "[əˋtʃiv]",
+        pos: "v.",
+        verbForms: "achieve / achieved / achieved",
+        defEn: "To do what you planned or wanted to do.",
+        defCh: "達成；實現；成就",
+        keyPoint: { 
+            title: "Collocation", 
+            desc: "Achieve a goal (達成目標)；Achieve success (獲得成功)。", 
+            exEn: "She worked hard to achieve her dreams.", 
+            exCh: "她努力實現夢想。" 
+        },
+        synonyms: [{en: "Accomplish", ch: "完成"}, {en: "Attain", ch: "獲得"}],
+        antonyms: [{en: "Fail", ch: "失敗"}, {en: "Give up", ch: "放棄"}],
+        collocs: [
+            { en: "achieve success", ch: "獲得成功", sentEn: "Hard work is the only way to achieve success.", sentCh: "努力是成功的唯一途徑。" },
+            { en: "achievement", ch: "成就(名詞)", sentEn: "Winning the prize was a great achievement.", sentCh: "獲獎是一項偉大的成就。" }
+        ],
+        media: [
+            { type: "Movie", source: "Kung Fu Panda", en: "To achieve anything, you must believe in yourself.", ch: "要達成任何事，你必須相信自己。" }
+        ]
+    },
+    {
+        word: "Admire",
+        level: "inter",
+        kk: "[ədˋmaɪr]",
+        pos: "v.",
+        verbForms: "admire / admired / admired",
+        defEn: "To find someone or something attractive and pleasant to look at.",
+        defCh: "欽佩；欣賞",
+        keyPoint: { 
+            title: "Preposition", 
+            desc: "Admire someone FOR something (因某事欽佩某人)。", 
+            exEn: "I admire him for his courage.", 
+            exCh: "我欽佩他的勇氣。" 
+        },
+        synonyms: [{en: "Respect", ch: "尊敬"}, {en: "Appreciate", ch: "欣賞"}],
+        antonyms: [{en: "Despise", ch: "鄙視"}, {en: "Loathe", ch: "厭惡"}],
+        collocs: [
+            { en: "secretly admire", ch: "暗戀/暗中欣賞", sentEn: "She secretly admires him.", sentCh: "她暗中欣賞他。" },
+            { en: "admire the view", ch: "欣賞風景", sentEn: "We stopped to admire the view.", sentCh: "我們停下來欣賞風景。" }
+        ],
+        media: [
+            { type: "Movie", source: "Pride and Prejudice", en: "I admire and love you.", ch: "我仰慕並愛著你。" },
+            { type: "Song", source: "Harry Styles", en: "I'd walk through fire for you, just let me adore you.", ch: "我願為你赴湯蹈火，只求讓我愛慕你。" }
+        ]
+    },
+    {
+        word: "Admit",
+        level: "inter",
+        kk: "[ədˋmɪt]",
+        pos: "v.",
+        verbForms: "admit / admitted / admitted",
+        defEn: "To agree that something is true, especially unwillingly.",
+        defCh: "承認；准許進入",
+        keyPoint: { 
+            title: "Grammar", 
+            desc: "Admit + V-ing (承認做過某事)。", 
+            exEn: "He admitted stealing the money.", 
+            exCh: "他承認偷了錢。" 
+        },
+        synonyms: [{en: "Confess", ch: "招供"}, {en: "Acknowledge", ch: "承認"}],
+        antonyms: [{en: "Deny", ch: "否認"}, {en: "Refuse", ch: "拒絕"}],
+        collocs: [
+            { en: "admit defeat", ch: "認輸", sentEn: "He refused to admit defeat.", sentCh: "他拒絕認輸。" },
+            { en: "admit mistake", ch: "認錯", sentEn: "It takes courage to admit your mistakes.", sentCh: "認錯需要勇氣。" }
+        ],
+        media: [
+            { type: "Movie", source: "A Few Good Men", en: "I want the truth! You can't handle the truth!", ch: "我要真相！你承受不了真相！（法庭逼供場景）" }
+        ]
+    },
+    {
+        word: "Adopt",
+        level: "inter",
+        kk: "[əˋdɑpt]",
+        pos: "v.",
+        verbForms: "adopt / adopted / adopted",
+        defEn: "To take another person's child into your own family and legally raise him or her.",
+        defCh: "領養；採納",
+        keyPoint: { 
+            title: "Confusing Words", 
+            desc: "Adopt (領養/採納) vs. Adapt (適應/改編)。注意母音 o 與 a 的差別。", 
+            exEn: "We decided to adopt a puppy.", 
+            exCh: "我們決定領養一隻小狗。" 
+        },
+        synonyms: [{en: "Embrace", ch: "擁抱/採納"}, {en: "Select", ch: "選擇"}],
+        antonyms: [{en: "Reject", ch: "拒絕"}, {en: "Abandon", ch: "拋棄"}],
+        collocs: [
+            { en: "adopt a child", ch: "領養小孩", sentEn: "They adopted an orphan.", sentCh: "他們領養了一名孤兒。" },
+            { en: "adopt a strategy", ch: "採取策略", sentEn: "The company adopted a new marketing strategy.", sentCh: "公司採取了新的行銷策略。" }
+        ],
+        media: [
+            { type: "Movie", source: "Despicable Me", en: "I want to adopt these three girls.", ch: "我想要領養這三個女孩。" },
+            { type: "Movie", source: "Batman Begins", en: "We adopt the dark.", ch: "我們擁抱黑暗。" }
+        ]
+    },
+    {
+        word: "Afford",
+        level: "inter",
+        kk: "[əˋford]",
+        pos: "v.",
+        verbForms: "afford / afforded / afforded",
+        defEn: "To be able to buy or do something because you have enough money or time.",
+        defCh: "負擔得起；買得起",
+        keyPoint: { 
+            title: "Grammar", 
+            desc: "通常與 can/could/be able to 連用。 Afford to V.", 
+            exEn: "I can't afford to buy a house.", 
+            exCh: "我買不起房子。" 
+        },
+        synonyms: [{en: "Bear", ch: "承擔"}, {en: "Manage", ch: "設法做"}],
+        antonyms: [],
+        collocs: [
+            { en: "can't afford", ch: "買不起/承擔不起", sentEn: "We can't afford to wait.", sentCh: "我們承擔不起等待的後果。" },
+            { en: "affordable", ch: "負擔得起的(形容詞)", sentEn: "This car is affordable.", sentCh: "這輛車價格實惠。" }
+        ],
+        media: [
+            { type: "Song", source: "Macklemore - Thrift Shop", en: "I wear your granddad's clothes, I look incredible.", ch: "我穿你爺爺的舊衣，看起來棒極了（意指省錢/Affordable）。" },
+            { type: "Movie", source: "Titanic", en: "I can't afford to go to America.", ch: "我付不起去美國的錢。" }
+        ]
+    },
+
+    // ==========================================
+    //  🟣 高級 (Advanced) - 10 Words
+    // ==========================================
+    {
+        word: "Abundant",
+        level: "adv",
+        kk: "[əˋbʌndənt]",
+        pos: "adj.",
+        defEn: "Existing in large quantities; plentiful.",
+        defCh: "豐富的；大量的",
+        keyPoint: { 
+            title: "Preposition", 
+            desc: "Abundant IN something (富含...)。", 
+            exEn: "The river is abundant in fish.", 
+            exCh: "這條河魚產豐富。" 
+        },
+        synonyms: [{en: "Plentiful", ch: "豐富的"}, {en: "Ample", ch: "充足的"}],
+        antonyms: [{en: "Scarce", ch: "稀缺的"}, {en: "Rare", ch: "稀有的"}],
+        collocs: [
+            { en: "abundant supply", ch: "供應充足", sentEn: "There is an abundant supply of food.", sentCh: "食物供應充足。" },
+            { en: "abundant resources", ch: "豐富資源", sentEn: "The country has abundant natural resources.", sentCh: "該國擁有豐富的天然資源。" }
+        ],
+        media: [
+            { type: "Book", source: "The Secret Garden", en: "The magic was abundant in the garden.", ch: "花園裡充滿了魔力。" }
+        ]
+    },
+    {
+        word: "Accelerate",
+        level: "adv",
+        kk: "[ækˋsɛlə͵ret]",
+        pos: "v.",
+        verbForms: "accelerate / accelerated / accelerated",
+        defEn: "To happen or make something happen sooner or faster.",
+        defCh: "加速；促進",
         keyPoint: { 
             title: "Word Root", 
-            desc: "字根 'ambi-' 表示「兩者、周圍」，如 ambidextrous (雙手靈巧的)。", 
-            exEn: "His reply was ambiguous.", 
-            exCh: "他的回答模稜兩可。" 
+            desc: "celer (快) + ate (動詞化)。Accelerator (油門)。", 
+            exEn: "The car accelerated to 100 km/h.", 
+            exCh: "車子加速到時速100公里。" 
         },
-        synonyms: [{en: "Vague", ch: "模糊的"}, {en: "Unclear", ch: "不清楚的"}],
-        antonyms: [{en: "Clear", ch: "清楚的"}, {en: "Explicit", ch: "明確的"}],
+        synonyms: [{en: "Speed up", ch: "加速"}, {en: "Hasten", ch: "催促"}],
+        antonyms: [{en: "Decelerate", ch: "減速"}, {en: "Slow down", ch: "慢下來"}],
         collocs: [
-            { en: "ambiguous statement", ch: "含糊的聲明", sentEn: "The politician made an ambiguous statement.", sentCh: "那位政治人物發表了含糊的聲明。" },
-            { en: "remain ambiguous", ch: "保持模糊", sentEn: "The ending of the movie remained ambiguous.", sentCh: "電影的結局依然模稜兩可。" }
+            { en: "accelerate growth", ch: "加速成長", sentEn: "Policies to accelerate economic growth.", sentCh: "加速經濟成長的政策。" },
+            { en: "rapidly accelerate", ch: "急劇加速", sentEn: "Inflation has rapidly accelerated.", sentCh: "通貨膨脹急劇加速。" }
         ],
         media: [
-            { type: "Book", source: "1984", en: "Doublethink means the power of holding two contradictory beliefs.", ch: "雙重思想意味著同時持有兩種矛盾信念的能力。" }
+            { type: "Movie", source: "Fast & Furious", en: "I live my life a quarter mile at a time.", ch: "我的人生就是一次四分之一英里的衝刺（加速）。" }
         ]
     },
     {
-        word: "Benevolent",
+        word: "Accessible",
         level: "adv",
-        kk: "[bəˋnɛvələnt]",
+        kk: "[ækˋsɛsəb!]",
         pos: "adj.",
-        defEn: "Kind and helpful.",
-        defCh: "仁慈的；慈善的",
+        defEn: "Able to be reached or easily got.",
+        defCh: "可接近的；易取得的；無障礙的",
         keyPoint: { 
-            title: "Word Root", 
-            desc: "字根 'bene-' 表示「好」(Good)，如 benefit (利益)。相反詞是 'male-' (壞)，如 malevolent (惡意的)。", 
-            exEn: "She was a benevolent leader.", 
-            exCh: "她是位仁慈的領袖。" 
+            title: "Preposition", 
+            desc: "Accessible TO someone.", 
+            exEn: "The information should be accessible to everyone.", 
+            exCh: "資訊應該讓每個人都能取得。" 
         },
-        synonyms: [{en: "Kind", ch: "仁慈的"}, {en: "Generous", ch: "慷慨的"}],
-        antonyms: [{en: "Malevolent", ch: "惡意的"}, {en: "Cruel", ch: "殘忍的"}],
+        synonyms: [{en: "Available", ch: "可用的"}, {en: "Reachable", ch: "可到達的"}],
+        antonyms: [{en: "Inaccessible", ch: "難以接近的"}, {en: "Restricted", ch: "受限的"}],
         collocs: [
-            { en: "benevolent dictator", ch: "仁慈的獨裁者", sentEn: "He acted as a benevolent dictator.", sentCh: "他扮演著仁慈獨裁者的角色。" },
-            { en: "benevolent smile", ch: "慈祥的微笑", sentEn: "He gave me a benevolent smile.", sentCh: "他給了我一個慈祥的微笑。" }
+            { en: "easily accessible", ch: "交通便利", sentEn: "The hotel is easily accessible by car.", sentCh: "這飯店開車很容易到達。" },
+            { en: "accessible price", ch: "平易近人的價格", sentEn: "We offer fashion at an accessible price.", sentCh: "我們提供價格親民的時尚。" }
         ],
         media: [
-            { type: "Book", source: "Les Misérables", en: "To love another person is to see the face of God.", ch: "愛另一個人就是見到了上帝的臉。" }
+            { type: "Documentary", source: "TED Talk", en: "Making knowledge accessible to all.", ch: "讓所有人都能獲取知識。" }
         ]
     },
     {
-        word: "Capability",
+        word: "Accommodate",
         level: "adv",
-        kk: "[͵kepəˋbɪlətɪ]",
-        pos: "n.",
-        defEn: "The ability or power to do something.",
-        defCh: "能力；才能；性能",
+        kk: "[əˋkɑmə͵det]",
+        pos: "v.",
+        verbForms: "accommodate / accommodated / accommodated",
+        defEn: "To provide with a place to live or to be stored in.",
+        defCh: "容納；住宿；迎合",
         keyPoint: { 
-            title: "Comparison", 
-            desc: "Capability 強調「潛在的能力」或「性能」(常指機械或組織)，而 Ability 泛指一般的「能力」。", 
-            exEn: "This phone has the capability to record 4K video.", 
-            exCh: "這支手機有錄製4K影片的性能。" 
+            title: "Spelling", 
+            desc: "注意拼寫：兩個 c，兩個 m (ac-com-mo-date)。", 
+            exEn: "The hotel can accommodate 500 guests.", 
+            exCh: "這家飯店可容納500位客人。" 
         },
-        synonyms: [{en: "Ability", ch: "能力"}, {en: "Capacity", ch: "容量/能力"}],
-        antonyms: [{en: "Inability", ch: "無能"}],
+        synonyms: [{en: "House", ch: "給...房子住"}, {en: "Fit", ch: "容納"}],
+        antonyms: [{en: "Reject", ch: "拒絕"}],
         collocs: [
-            { en: "nuclear capability", ch: "核武能力", sentEn: "The country is developing nuclear capability.", sentCh: "該國正在發展核武能力。" },
-            { en: "beyond one's capability", ch: "超出能力範圍", sentEn: "This task is beyond my capability.", sentCh: "這項任務超出了我的能力範圍。" }
+            { en: "accommodate needs", ch: "迎合需求", sentEn: "We try to accommodate the needs of our customers.", sentCh: "我們試著迎合顧客的需求。" },
+            { en: "accommodation", ch: "住宿(名詞)", sentEn: "Accommodation is expensive in London.", sentCh: "倫敦的住宿很貴。" }
         ],
         media: [
-            { type: "Movie", source: "Limitless", en: "I was blind, but now I see. (Enhanced capability)", ch: "我曾盲目，但現在我看見了。" }
+            { type: "Movie", source: "Hotel Transylvania", en: "We accommodate monsters of all kinds.", ch: "我們容納各式各樣的怪物。" }
+        ]
+    },
+    {
+        word: "Accumulate",
+        level: "adv",
+        kk: "[əˋkjumjə͵let]",
+        pos: "v.",
+        verbForms: "accumulate / accumulated / accumulated",
+        defEn: "To collect a large number of things over a long period of time.",
+        defCh: "累積；積聚",
+        keyPoint: { 
+            title: "Context", 
+            desc: "常用於累積財富 (wealth)、知識 (knowledge)、灰塵 (dust)。", 
+            exEn: "Dust has accumulated on the books.", 
+            exCh: "書上積滿了灰塵。" 
+        },
+        synonyms: [{en: "Gather", ch: "聚集"}, {en: "Collect", ch: "收集"}],
+        antonyms: [{en: "Disperse", ch: "驅散"}, {en: "Spend", ch: "花費"}],
+        collocs: [
+            { en: "accumulate wealth", ch: "累積財富", sentEn: "It takes time to accumulate wealth.", sentCh: "累積財富需要時間。" },
+            { en: "accumulate evidence", ch: "蒐集證據", sentEn: "Police are accumulating evidence.", sentCh: "警方正在蒐集證據。" }
+        ],
+        media: [
+            { type: "Book", source: "The Great Gatsby", en: "He accumulated his fortune through illegal means.", ch: "他透過非法手段累積了財富。" }
+        ]
+    },
+    {
+        word: "Accustom",
+        level: "adv",
+        kk: "[əˋkʌstəm]",
+        pos: "v.",
+        verbForms: "accustom / accustomed / accustomed",
+        defEn: "To make someone familiar with new conditions.",
+        defCh: "使習慣於",
+        keyPoint: { 
+            title: "Phrase", 
+            desc: "Be accustomed to + V-ing/Noun (習慣於...) = Be used to。", 
+            exEn: "I am accustomed to getting up early.", 
+            exCh: "我習慣早起。" 
+        },
+        synonyms: [{en: "Adapt", ch: "適應"}, {en: "Adjust", ch: "調整"}],
+        antonyms: [],
+        collocs: [
+            { en: "accustom oneself to", ch: "使自己習慣", sentEn: "You must accustom yourself to the cold weather.", sentCh: "你必須讓自己習慣寒冷的天氣。" },
+            { en: "become accustomed to", ch: "逐漸習慣", sentEn: "She has become accustomed to the noise.", sentCh: "她已經習慣了噪音。" }
+        ],
+        media: [
+            { type: "Book", source: "Sherlock Holmes", en: "I am accustomed to the dark.", ch: "我已經習慣了黑暗。" }
+        ]
+    },
+    {
+        word: "Acknowledge",
+        level: "adv",
+        kk: "[əkˋnɑlɪdʒ]",
+        pos: "v.",
+        verbForms: "acknowledge / acknowledged / acknowledged",
+        defEn: "To accept, admit, or recognize something, or the truth or existence of something.",
+        defCh: "承認；認可；告知收到",
+        keyPoint: { 
+            title: "Business Usage", 
+            desc: "在商業信件中常指「告知已收到(信件/包裹)」。Acknowledge receipt of...", 
+            exEn: "Please acknowledge receipt of this email.", 
+            exCh: "收到此信請回覆。" 
+        },
+        synonyms: [{en: "Admit", ch: "承認"}, {en: "Recognize", ch: "認可"}],
+        antonyms: [{en: "Ignore", ch: "忽視"}, {en: "Deny", ch: "否認"}],
+        collocs: [
+            { en: "acknowledge the truth", ch: "承認事實", sentEn: "He refused to acknowledge the truth.", sentCh: "他拒絕承認事實。" },
+            { en: "widely acknowledged", ch: "廣受認可", sentEn: "She is widely acknowledged as an expert.", sentCh: "她被公認為專家。" }
+        ],
+        media: [
+            { type: "Movie", source: "Doctor Strange", en: "Dormammu, I've come to bargain. (Waiting to be acknowledged)", ch: "多瑪暮，我是來談條件的。（等待被回應/認可）" }
+        ]
+    },
+    {
+        word: "Acquire",
+        level: "adv",
+        kk: "[əˋkwaɪr]",
+        pos: "v.",
+        verbForms: "acquire / acquired / acquired",
+        defEn: "To get something.",
+        defCh: "獲得；習得；收購",
+        keyPoint: { 
+            title: "Nuance", 
+            desc: "Acquire 比 Get 正式。常用於習得技能 (acquire skills) 或公司收購。", 
+            exEn: "He acquired a new skill.", 
+            exCh: "他學會了一項新技能。" 
+        },
+        synonyms: [{en: "Obtain", ch: "獲得"}, {en: "Gain", ch: "贏得"}],
+        antonyms: [{en: "Lose", ch: "失去"}, {en: "Forfeit", ch: "喪失"}],
+        collocs: [
+            { en: "acquire knowledge", ch: "獲取知識", sentEn: "Reading is the best way to acquire knowledge.", sentCh: "閱讀是獲取知識的最佳途徑。" },
+            { en: "acquire a company", ch: "收購公司", sentEn: "Google acquired YouTube.", sentCh: "Google 收購了 YouTube。" }
+        ],
+        media: [
+            { type: "Movie", source: "Taken", en: "I have a very particular set of skills, skills I have acquired over a very long career.", ch: "我具備一套非常特別的技能，這是我漫長職涯中習得的。" }
+        ]
+    },
+    {
+        word: "Adapt",
+        level: "adv",
+        kk: "[əˋdæpt]",
+        pos: "v.",
+        verbForms: "adapt / adapted / adapted",
+        defEn: "To change your ideas or behaviour to make them suitable for a new situation.",
+        defCh: "適應；改編",
+        keyPoint: { 
+            title: "Confusing Words", 
+            desc: "Adapt (適應/改編) vs. Adopt (領養/採用)。Adapt to + Noun.", 
+            exEn: "It takes time to adapt to a new environment.", 
+            exCh: "適應新環境需要時間。" 
+        },
+        synonyms: [{en: "Adjust", ch: "調整"}, {en: "Modify", ch: "修改"}],
+        antonyms: [],
+        collocs: [
+            { en: "adapt to change", ch: "適應變化", sentEn: "Businesses must adapt to change.", sentCh: "企業必須適應變化。" },
+            { en: "adapted from", ch: "改編自", sentEn: "This movie is adapted from a novel.", sentCh: "這部電影改編自小說。" }
+        ],
+        media: [
+            { type: "Movie", source: "Imitation Game", en: "We must adapt to win.", ch: "我們必須適應才能獲勝。" },
+            { type: "Quote", source: "Charles Darwin", en: "It is the one that is most adaptable to change that survives.", ch: "能生存下來的，是那些最能適應變化的物種。" }
+        ]
+    },
+    {
+        word: "Addict",
+        level: "adv",
+        kk: "[ˋædɪkt]",
+        pos: "n. / v.",
+        verbForms: "addict / addicted / addicted",
+        defEn: "A person who cannot stop doing or using something, especially something harmful.",
+        defCh: "成癮者；入迷的人",
+        keyPoint: { 
+            title: "Adjective Usage", 
+            desc: "最常用的是形容詞形態：Be addicted to (對...上癮)。", 
+            exEn: "He is addicted to video games.", 
+            exCh: "他沉迷於電玩遊戲。" 
+        },
+        synonyms: [{en: "Junkie", ch: "毒蟲(口語)"}, {en: "Fan", ch: "狂熱者"}],
+        antonyms: [],
+        collocs: [
+            { en: "drug addict", ch: "毒癮者", sentEn: "He is a recovering drug addict.", sentCh: "他是一位正在康復的毒癮者。" },
+            { en: "addicted to", ch: "對...上癮", sentEn: "Many people are addicted to social media.", sentCh: "許多人對社群媒體上癮。" }
+        ],
+        media: [
+            { type: "Song", source: "Avicii - Addicted to You", en: "I'm addicted to you, hooked on your love.", ch: "我對你上癮，迷上了你的愛。" }
         ]
     }
 ];
