@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>GEPT 結構分離版 v24.0</title>
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+
+<script src="data.js"></script>
+
+<style>
+    /* --- 核心設定 --- */
+    * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+    
+    :root {
+        --fs-word: 42px; --fs-content: 15px; --fs-sub: 13px;
+    }
+    [data-fontsize="small"] { --fs-word: 36px; --fs-content: 13px; --fs-sub: 12px; }
+    [data-fontsize="medium"] { --fs-word: 42px; --fs-content: 15px; --fs-sub: 13px; }
+    [data-fontsize="large"] { --fs-word: 52px; --fs-content: 18px; --fs-sub: 15px; }
+
+    html, body { margin: 0; padding: 0; width: 100%; height: 100dvh; overflow: hidden; background-color: #f3f4f6; font-family: 'Nunito', 'Noto Sans TC', sans-serif; }
+
+    /* --- 選單畫面 --- */
+    #menuScreen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); z-index: 2000; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; }
+    .menu-title { font-size: 28px; font-weight: 800; color: #1e293b; margin-bottom: 10px; }
+    .level-btn { width: 100%; max-width: 320px; padding: 20px; margin-bottom: 15px; border: none; border-radius: 20px; cursor: pointer; text-align: left; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 10px 20px rgba(0,0,0,0.05); transition: transform 0.2s; flex-shrink: 0; }
+    .level-btn:active { transform: scale(0.98); }
+    .btn-elem { background: linear-gradient(110deg, #10b981 0%, #059669 100%); color: white; }
+    .btn-inter { background: linear-gradient(110deg, #3b82f6 0%, #2563eb 100%); color: white; }
+    .btn-adv { background: linear-gradient(110deg, #8b5cf6 0%, #7c3aed 100%); color: white; }
+    .level-btn .text-group { display: flex; flex-direction: column; }
+    .level-btn .lvl-name { font-size: 20px; font-weight: 800; }
+
+    /* --- 主介面 --- */
+    #appContainer { display: none; width: 100%; height: 100dvh; display: grid; grid-template-rows: auto 1fr auto; justify-items: center; padding-bottom: env(safe-area-inset-bottom); }
+    
+    .top-bar { width: 100%; max-width: 500px; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; background: white; box-shadow: 0 2px 10px rgba(0,0,0,0.05); z-index: 50; }
+    .left-group { display: flex; align-items: center; gap: 10px; }
+    .back-menu-btn { font-size: 14px; font-weight: 700; color: #64748b; background: #f1f5f9; padding: 8px 12px; border-radius: 8px; border: none; cursor: pointer; display: flex; align-items: center; gap: 5px; }
+    .daily-stats { font-size: 13px; font-weight: 700; color: #4b5563; display: flex; gap: 8px; }
+    .stat-pill { display: flex; align-items: center; gap: 4px; background: #f9fafb; padding: 4px 8px; border-radius: 6px; border: 1px solid #e5e7eb;}
+    .stat-pill.learned { color: #10b981; } .stat-pill.unknown { color: #ef4444; }
+    .icon-btn { background: #f3f4f6; border: none; width: 40px; height: 40px; border-radius: 12px; color: #374151; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: 0.2s; margin-left: 5px;}
+    .icon-btn:active { background: #e5e7eb; transform: scale(0.95); }
+
+    /* 卡片區 */
+    .card-stack { width: 94%; max-width: 450px; height: 100%; position: relative; margin: 15px 0; perspective: 1000px; min-height: 0; }
+    .card { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: white; border-radius: 24px; box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1); padding: 0; display: flex; flex-direction: column; transform-origin: 50% 100%; cursor: grab; user-select: none; touch-action: none; overflow: hidden; transition: transform 0.5s ease-out, opacity 0.5s; }
+    .card.cursor-default { cursor: default; }
+    .card-content-scroll { flex: 1; overflow-y: auto; padding: 25px 20px 40px 20px; display: flex; flex-direction: column; align-items: flex-start; -webkit-overflow-scrolling: touch; }
+
+    /* 按鈕區 */
+    .action-buttons { width: 100%; max-width: 420px; display: flex; gap: 15px; padding: 5px 20px 15px 20px; padding-bottom: calc(env(safe-area-inset-bottom) + 20px); }
+    .btn-action { flex: 1; border: none; border-radius: 14px; padding: 10px 5px; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; position: relative; transition: transform 0.1s; }
+    .btn-action:active { transform: translateY(3px); box-shadow: none !important; }
+    .btn-unknown { background-color: #f59e0b; box-shadow: 0 3px 0 #d97706; }
+    .btn-known { background-color: #10b981; box-shadow: 0 3px 0 #059669; }
+    .btn-emoji { font-size: 20px; margin-bottom: 2px; }
+    .btn-title { font-size: 16px; font-weight: 800; margin-bottom: 1px; }
+    .btn-desc { font-size: 11px; opacity: 0.9; font-weight: 500; }
+
+    /* 內容樣式 */
+    .word-header { text-align: center; margin-bottom: 15px; border-bottom: 2px solid #f3f4f6; padding-bottom: 15px; width: 100%; align-self: center; flex-shrink: 0;}
+    .pos-badge { background: #eff6ff; color: #3b82f6; padding: 4px 12px; border-radius: 20px; font-size: 13px; font-weight: 800; display: inline-block; margin-bottom: 8px; }
+    .word-text { font-size: var(--fs-word); font-weight: 800; color: #111827; line-height: 1.1; margin: 0; cursor: pointer; transition: transform 0.1s, color 0.1s; }
+    .word-text:active { transform: scale(0.95); color: #3b82f6; }
+    .kk-text { font-family: 'Arial', sans-serif; font-size: 16px; color: #9ca3af; margin-top: 4px; margin-bottom: 8px;}
+    
+    .keypoint-box { width: 100%; text-align: left; background: #fff1f2; border: 1px solid #fecdd3; border-radius: 10px; padding: 12px; margin-top: 15px; display: flex; gap: 10px; align-items: flex-start; box-sizing: border-box; }
+    .keypoint-icon { color: #e11d48; font-size: 18px; margin-top: 2px;}
+    .keypoint-content { flex: 1; }
+    .keypoint-title { font-size: 13px; font-weight: 800; color: #be123c; text-transform: uppercase; margin-bottom: 3px;}
+    
+    .keypoint-desc, .def-en, .sent-text-en, .media-text-en, .colloc-en { font-size: var(--fs-content); font-weight: 600; color: #1f2937; line-height: 1.4; }
+    .keypoint-ex-en, .def-ch, .sent-text-ch, .media-text-ch, .colloc-ch { font-size: var(--fs-sub); color: #6b7280; font-weight: 500; }
+    
+    .keypoint-ex { margin-top: 8px; padding-top: 8px; border-top: 1px dashed #fda4af; }
+    .keypoint-ex-en { color: #9f1239; font-style: italic; flex: 1; margin-bottom: 2px;}
+    .keypoint-ex-ch { color: #be123c; opacity: 0.9;}
+
+    .verb-forms-box { background: #fff7ed; color: #c2410c; border: 1px solid #ffedd5; padding: 8px 15px; border-radius: 8px; font-size: var(--fs-content); font-weight: 700; margin-top: 10px; display: inline-block; cursor: pointer; transition: transform 0.1s; }
+    .verb-forms-box:active { transform: scale(0.95); background: #ffedd5; }
+    .verb-label { font-size: 11px; text-transform: uppercase; color: #ea580c; display: block; margin-bottom: 2px; }
+    
+    .def-container { text-align: left; background: #f9fafb; padding: 12px; border-radius: 12px; margin-top: 10px; border-left: 4px solid #3b82f6; width: 100%; box-sizing: border-box;}
+    .sent-play-btn { background: #f3f4f6; color: #4b5563; border: none; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0; font-size: 12px; margin-top: 2px; }
+    .sent-play-btn:active { background: #d1d5db; }
+
+    .lexical-box { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 15px; }
+    .relation-row { display: flex; align-items: flex-start; gap: 8px; flex-wrap: wrap; }
+    .relation-label { font-size: 11px; font-weight: 800; text-transform: uppercase; color: #9ca3af; min-width: 30px; margin-top: 6px;}
+    .word-tag { padding: 4px 10px; border-radius: 6px; font-size: 13px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: baseline; gap: 4px; }
+    .tag-en { font-size: var(--fs-content); } .tag-ch { font-size: 11px; opacity: 0.8; font-weight: normal;}
+    .tag-syn { background: #ecfeff; color: #0891b2; border: 1px solid #cffafe; }
+    .tag-ant { background: #fff1f2; color: #e11d48; border: 1px solid #ffe4e6; }
+
+    .section-title { font-size: 13px; color: #94a3b8; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; margin: 30px 0 10px 0; width: 100%; display: flex; align-items: center; gap: 8px; flex-shrink: 0;}
+    .colloc-list, .media-list { width: 100%; display: flex; flex-direction: column; gap: 10px; }
+    .colloc-item, .media-item { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+    .colloc-item { border-left: 4px solid #10b981; } .media-item { border-left: 4px solid #8b5cf6; position: relative; overflow: hidden; }
+    .colloc-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px dashed #e5e7eb; padding-bottom: 5px; margin-bottom: 5px;}
+    .media-badge { position: absolute; top: 0; right: 0; background: #8b5cf6; color: white; font-size: 10px; padding: 2px 8px; border-bottom-left-radius: 8px; font-weight: bold; }
+    .media-source { font-size: 11px; color: #8b5cf6; font-weight: 800; text-transform: uppercase;}
+    .sent-box { display: flex; align-items: flex-start; gap: 8px; } .sent-text-group { flex: 1; } .sent-text-ch { margin-top: 2px; }
+    .finished-view { display: none; text-align: center; padding-top: 150px; width: 100%; height: 100%; position: absolute; top: 0; left: 0; background: #f3f4f6; z-index: 100; flex-direction: column; justify-content: center; align-items: center; }
+
+    /* Modals */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 3000; justify-content: center; align-items: center; }
+    .modal-content { background: white; width: 90%; max-width: 400px; border-radius: 20px; padding: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #f3f4f6; padding-bottom: 15px;}
+    .modal-title { font-size: 20px; font-weight: 800; color: #111827; }
+    .close-btn { background: none; border: none; font-size: 24px; color: #6b7280; cursor: pointer; }
+    .setting-item { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+    .setting-label { font-size: 15px; font-weight: 600; color: #374151; }
+    .switch { position: relative; display: inline-block; width: 50px; height: 26px; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #e5e7eb; transition: .4s; border-radius: 34px; }
+    .slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; box-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+    input:checked + .slider { background-color: #3b82f6; }
+    input:checked + .slider:before { transform: translateX(24px); }
+    .opt-group { display: flex; background: #f3f4f6; padding: 3px; border-radius: 10px; width: 100%; margin-top: 5px; }
+    .opt-btn { flex: 1; border: none; background: transparent; padding: 8px; border-radius: 8px; cursor: pointer; font-weight: bold; color: #6b7280; transition: 0.2s; font-size: 14px;}
+    .opt-btn.active { background: white; color: #111827; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; text-align: center; }
+    .cal-day-name { font-size: 12px; font-weight: bold; color: #9ca3af; margin-bottom: 10px; }
+    .cal-day { height: 50px; display: flex; flex-direction: column; align-items: center; justify-content: flex-start; padding-top: 5px; border-radius: 8px; font-size: 14px; font-weight: 600; color: #374151; position: relative; background: #f9fafb; }
+    .cal-day.today { background: #eff6ff; color: #3b82f6; border: 1px solid #bfdbfe; }
+    .cal-stats-row { display: flex; gap: 4px; font-size: 9px; margin-top: 2px; font-weight: 800; }
+    .cal-learned { color: #10b981; } .cal-unknown { color: #ef4444; }
+</style>
+</head>
+<body data-fontsize="medium">
+
+<div id="menuScreen">
+    <div class="menu-title">GEPT Vocabulary</div>
+    <button class="level-btn btn-elem" onclick="startLevel('elem')">
+        <div class="text-group"><span class="lvl-name">Elementary</span><span style="font-size:12px; opacity:0.8">初級 (A1-A2)</span></div>
+        <i class="fas fa-seedling" style="font-size:24px; opacity:0.8"></i>
+    </button>
+    <button class="level-btn btn-inter" onclick="startLevel('inter')">
+        <div class="text-group"><span class="lvl-name">Intermediate</span><span style="font-size:12px; opacity:0.8">中級 (B1)</span></div>
+        <i class="fas fa-layer-group" style="font-size:24px; opacity:0.8"></i>
+    </button>
+    <button class="level-btn btn-adv" onclick="startLevel('adv')">
+        <div class="text-group"><span class="lvl-name">Advanced</span><span style="font-size:12px; opacity:0.8">高級 (B2-C1)</span></div>
+        <i class="fas fa-graduation-cap" style="font-size:24px; opacity:0.8"></i>
+    </button>
+</div>
+
+<div id="appContainer">
+    <div class="top-bar">
+        <div class="left-group">
+            <button class="back-menu-btn" onclick="returnToMenu()"><i class="fas fa-chevron-left"></i> Menu</button>
+            <div class="daily-stats">
+                <div class="stat-pill learned"><i class="fas fa-check-circle"></i><span id="todayLearned">0</span></div>
+                <div class="stat-pill unknown"><i class="fas fa-times-circle"></i><span id="todayUnknown">0</span></div>
+            </div>
+        </div>
+        <div style="display:flex; gap:10px;">
+            <button class="icon-btn" onclick="openCalendar()"><i class="far fa-calendar-alt"></i></button>
+            <button class="icon-btn" onclick="openSettings()"><i class="fas fa-cog"></i></button>
+        </div>
+    </div>
+
+    <div class="card-stack" id="cardStack"></div>
+
+    <div class="action-buttons">
+        <button class="btn-action btn-unknown" onclick="triggerUnknown()">
+            <span class="btn-emoji">😓</span>
+            <span class="btn-title">還不熟</span>
+            <span class="btn-desc">保留</span>
+        </button>
+        <button class="btn-action btn-known" onclick="triggerKnown()">
+            <span class="btn-emoji">😎</span>
+            <span class="btn-title">已學會</span>
+            <span class="btn-desc">移除</span>
+        </button>
+    </div>
+
+    <div id="finishedView" class="finished-view">
+        <h1 style="font-size: 60px; margin-bottom: 0;">🎉</h1>
+        <h2 style="color:#111827;">恭喜完成！</h2>
+        <button onclick="returnToMenu()" style="background:#3b82f6; color:white; border:none; padding:15px 40px; border-radius:30px; font-size:16px; cursor:pointer; font-weight:bold; margin-top: 20px;">返回選單</button>
+    </div>
+</div>
+
+<div class="modal" id="settingsModal">
+    <div class="modal-content">
+        <div class="modal-header"><div class="modal-title">Settings</div><button class="close-btn" onclick="closeSettings()">&times;</button></div>
+        <div style="margin-bottom: 20px;">
+            <div class="setting-label">Voice Gender</div>
+            <div class="opt-group">
+                <button class="opt-btn active" id="voiceBtnF" onclick="changeVoiceSetting('female')">Female (女)</button>
+                <button class="opt-btn" id="voiceBtnM" onclick="changeVoiceSetting('male')">Male (男)</button>
+            </div>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <div class="setting-label">Font Size</div>
+            <div class="opt-group">
+                <button class="opt-btn" id="fsSmall" onclick="changeFontSize('small')">Small</button>
+                <button class="opt-btn active" id="fsMedium" onclick="changeFontSize('medium')">Medium</button>
+                <button class="opt-btn" id="fsLarge" onclick="changeFontSize('large')">Large</button>
+            </div>
+        </div>
+        <hr style="border:0; border-top:1px solid #f3f4f6; margin: 15px 0;">
+        <div class="setting-item"><span class="setting-label">Usage Note / Trap</span><label class="switch"><input type="checkbox" id="toggleKeyPoint" checked onchange="updateSettings()"><span class="slider"></span></label></div>
+        <div class="setting-item"><span class="setting-label">Chinese Translation</span><label class="switch"><input type="checkbox" id="toggleTrans" checked onchange="updateSettings()"><span class="slider"></span></label></div>
+        <div class="setting-item"><span class="setting-label">Collocations</span><label class="switch"><input type="checkbox" id="toggleColloc" checked onchange="updateSettings()"><span class="slider"></span></label></div>
+        <div class="setting-item"><span class="setting-label">Media Examples</span><label class="switch"><input type="checkbox" id="toggleMedia" checked onchange="updateSettings()"><span class="slider"></span></label></div>
+        <div class="setting-item"><span class="setting-label">Synonyms/Antonyms</span><label class="switch"><input type="checkbox" id="toggleSynAnt" checked onchange="updateSettings()"><span class="slider"></span></label></div>
+    </div>
+</div>
+
+<div class="modal" id="calendarModal">
+    <div class="modal-content">
+        <div class="modal-header"><div class="modal-title" id="calMonthTitle">Calendar</div><button class="close-btn" onclick="closeCalendar()">&times;</button></div>
+        <div class="calendar-grid"><div class="cal-day-name">Sun</div><div class="cal-day-name">Mon</div><div class="cal-day-name">Tue</div><div class="cal-day-name">Wed</div><div class="cal-day-name">Thu</div><div class="cal-day-name">Fri</div><div class="cal-day-name">Sat</div></div>
+        <div class="calendar-grid" id="calGrid"></div>
+    </div>
+</div>
+
+<script>
+    // ==========================================
+    // 程式邏輯
+    // ==========================================
+    let userSettings = { gender: 'female', showTrans: true, showColloc: true, showMedia: true, showSynAnt: true, showKeyPoint: true, fontSize: 'medium' };
+    let studyList = [];
+    let availableVoices = [];
+    const STORAGE_KEY = 'gept_v23_history';
+
+    window.speechSynthesis.onvoiceschanged = function() { availableVoices = window.speechSynthesis.getVoices(); };
+
+    function openSettings() {
+        document.getElementById('settingsModal').style.display = 'flex';
+        document.getElementById('toggleTrans').checked = userSettings.showTrans;
+        document.getElementById('toggleColloc').checked = userSettings.showColloc;
+        document.getElementById('toggleMedia').checked = userSettings.showMedia;
+        document.getElementById('toggleSynAnt').checked = userSettings.showSynAnt;
+        document.getElementById('toggleKeyPoint').checked = userSettings.showKeyPoint;
+        updateVoiceBtnUI();
+        updateFontSizeBtnUI();
+    }
+    function closeSettings() { document.getElementById('settingsModal').style.display = 'none'; }
+    function changeVoiceSetting(gender) { userSettings.gender = gender; updateVoiceBtnUI(); }
+    function updateVoiceBtnUI() {
+        document.getElementById('voiceBtnF').classList.toggle('active', userSettings.gender === 'female');
+        document.getElementById('voiceBtnM').classList.toggle('active', userSettings.gender === 'male');
+    }
+    function changeFontSize(size) {
+        userSettings.fontSize = size;
+        document.body.setAttribute('data-fontsize', size);
+        updateFontSizeBtnUI();
+    }
+    function updateFontSizeBtnUI() {
+        const size = userSettings.fontSize;
+        document.getElementById('fsSmall').classList.toggle('active', size === 'small');
+        document.getElementById('fsMedium').classList.toggle('active', size === 'medium');
+        document.getElementById('fsLarge').classList.toggle('active', size === 'large');
+    }
+    function updateSettings() {
+        userSettings.showTrans = document.getElementById('toggleTrans').checked;
+        userSettings.showColloc = document.getElementById('toggleColloc').checked;
+        userSettings.showMedia = document.getElementById('toggleMedia').checked;
+        userSettings.showSynAnt = document.getElementById('toggleSynAnt').checked;
+        userSettings.showKeyPoint = document.getElementById('toggleKeyPoint').checked;
+        if (studyList.length > 0) renderCard();
+    }
+
+    function startLevel(level) {
+        studyList = fullDictionary.filter(item => item.level === level);
+        if (studyList.length === 0) { alert("此等級資料庫為空！"); return; }
+        document.getElementById('menuScreen').style.display = 'none';
+        document.getElementById('finishedView').style.display = 'none';
+        document.getElementById('appContainer').style.display = 'grid';
+        renderCard();
+    }
+    function returnToMenu() {
+        document.getElementById('finishedView').style.display = 'none';
+        document.getElementById('appContainer').style.display = 'none';
+        document.getElementById('menuScreen').style.display = 'flex';
+    }
+
+    function renderCard() {
+        const stack = document.getElementById('cardStack');
+        stack.innerHTML = ""; 
+        if (studyList.length === 0) {
+            document.getElementById('finishedView').style.display = 'flex';
+            confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } });
+            return;
+        } else {
+            document.getElementById('finishedView').style.display = 'none';
+        }
+        const data = studyList[0]; 
+        const card = document.createElement('div');
+        card.className = 'card';
+        
+        let verbFormsHTML = (data.pos.includes("v.") && data.verbForms) ? `<div class="verb-forms-box" onclick="speakText('${data.verbForms}')"><span class="verb-label">Verb Forms</span>${data.verbForms}</div>` : "";
+
+        let keyPointHTML = "";
+        if (userSettings.showKeyPoint && data.keyPoint) {
+            let exHTML = "";
+            if(data.keyPoint.exEn) { 
+                exHTML = `
+                <div class="keypoint-ex">
+                    <div class="sent-box" style="align-items: center;">
+                        <button class="sent-play-btn" onclick="speakText('${data.keyPoint.exEn.replace(/'/g, "\\'")}', 0.9)"><i class="fas fa-volume-up"></i></button>
+                        <div class="sent-text-group">
+                            <div class="keypoint-ex-en">"${data.keyPoint.exEn}"</div>
+                            <div class="keypoint-ex-ch">${data.keyPoint.exCh}</div>
+                        </div>
+                    </div>
+                </div>`; 
+            }
+            keyPointHTML = `<div class="keypoint-box"><i class="fas fa-exclamation-triangle keypoint-icon"></i><div class="keypoint-content"><div class="keypoint-title">${data.keyPoint.title}</div><div class="keypoint-desc">${data.keyPoint.desc}</div>${exHTML}</div></div>`;
+        }
+
+        let defChHTML = userSettings.showTrans ? `<div class="def-ch">${data.defCh}</div>` : "";
+
+        let lexicalHTML = "";
+        if (userSettings.showSynAnt) {
+            let synHTML = data.synonyms && data.synonyms.length > 0 ? `<div class="relation-row"><span class="relation-label">Syn</span>${data.synonyms.map(s => `<span class="word-tag tag-syn" onclick="speakText('${s.en}', 0.9); event.stopPropagation();"><span class="tag-en">${s.en}</span>${userSettings.showTrans ? `<span class="tag-ch">${s.ch}</span>` : ''}</span>`).join('')}</div>` : "";
+            let antHTML = data.antonyms && data.antonyms.length > 0 ? `<div class="relation-row"><span class="relation-label">Ant</span>${data.antonyms.map(s => `<span class="word-tag tag-ant" onclick="speakText('${s.en}', 0.9); event.stopPropagation();"><span class="tag-en">${s.en}</span>${userSettings.showTrans ? `<span class="tag-ch">${s.ch}</span>` : ''}</span>`).join('')}</div>` : "";
+            if (synHTML || antHTML) lexicalHTML = `<div class="lexical-box">${synHTML}${antHTML}</div>`;
+        }
+
+        let collocHTML = "";
+        if (userSettings.showColloc && data.collocs && data.collocs.length > 0) {
+            let items = data.collocs.map(c => `
+                <div class="colloc-item">
+                    <div class="colloc-header"><span class="colloc-en">${c.en}</span>${userSettings.showTrans ? `<span class="colloc-ch">${c.ch}</span>` : ''}</div>
+                    <div class="sent-box">
+                        <button class="sent-play-btn" onclick="speakText('${c.sentEn.replace(/'/g, "\\'")}', 0.9)"><i class="fas fa-volume-up"></i></button>
+                        <div class="sent-text-group"><div class="sent-text-en">${c.sentEn}</div>${userSettings.showTrans ? `<div class="sent-text-ch">${c.sentCh}</div>` : ''}</div>
+                    </div>
+                </div>
+            `).join('');
+            collocHTML = `<div class="section-title"><i class="fas fa-link"></i> Collocations</div><div class="colloc-list">${items}</div>`;
+        }
+
+        let mediaHTML = "";
+        if (userSettings.showMedia && data.media && data.media.length > 0) {
+            let items = data.media.map(m => `
+                <div class="media-item">
+                    <div class="media-badge">${m.type}</div><div class="media-source">${m.source}</div>
+                    <div class="sent-box">
+                        <button class="sent-play-btn" onclick="speakText('${m.en.replace(/'/g, "\\'")}', 0.9)"><i class="fas fa-play"></i></button>
+                        <div class="sent-text-group"><div class="media-text-en">"${m.en}"</div>${userSettings.showTrans ? `<div class="media-text-ch">${m.ch}</div>` : ''}</div>
+                    </div>
+                </div>
+            `).join('');
+            mediaHTML = `<div class="section-title"><i class="fas fa-book-open"></i> Context & Media</div><div class="media-list">${items}</div>`;
+        }
+
+        card.innerHTML = `
+            <div class="card-content-scroll">
+                <div class="word-header">
+                    <span class="pos-badge">${data.pos}</span>
+                    <h1 class="word-text" onclick="speakText('${data.word}')">${data.word}</h1>
+                    <div class="kk-text">${data.kk}</div>
+                    ${verbFormsHTML}
+                    <div class="def-container"><div class="def-en">${data.defEn}</div>${defChHTML}</div>
+                    ${keyPointHTML}
+                    ${lexicalHTML}
+                </div>
+                ${collocHTML}
+                ${mediaHTML}
+            </div>
+        `;
+        stack.appendChild(card);
+    }
+
+    function getPreferredVoice() {
+        if (availableVoices.length === 0) availableVoices = window.speechSynthesis.getVoices();
+        const englishVoices = availableVoices.filter(v => v.lang.includes('en'));
+        let keywords = userSettings.gender === 'female' ? ['Google US English', 'Samantha', 'Zira', 'Female'] : ['Google UK English Male', 'David', 'Daniel', 'Male'];
+        for (let key of keywords) {
+            const found = englishVoices.find(v => v.name.includes(key));
+            if (found) return found;
+        }
+        return englishVoices[0] || null;
+    }
+    function speakText(text, rate) {
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = 'en-US';
+        u.rate = rate || 0.85;
+        const bestVoice = getPreferredVoice();
+        if (bestVoice) u.voice = bestVoice;
+        window.speechSynthesis.speak(u);
+    }
+
+    function triggerKnown() {
+        const card = document.querySelector('.card');
+        if(card) {
+            card.style.transform = "translateX(120%) rotate(20deg)";
+            card.style.opacity = "0";
+        }
+        setTimeout(() => { markKnown(); }, 300);
+    }
+
+    function triggerUnknown() {
+        const card = document.querySelector('.card');
+        if(card) {
+            card.style.transform = "translateX(-120%) rotate(-20deg)";
+            card.style.opacity = "0";
+        }
+        setTimeout(() => { markUnknown(); }, 300);
+    }
+
+    function markKnown() { saveProgress('learned'); studyList.shift(); renderCard(); confetti({ particleCount: 50, spread: 60, origin: { y: 0.7 }, colors: ['#10b981', '#34d399'] }); }
+    function markUnknown() { saveProgress('unknown'); const current = studyList.shift(); studyList.push(current); renderCard(); }
+
+    function getHistory() { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+    function saveProgress(type) {
+        const history = getHistory();
+        const today = new Date().toISOString().split('T')[0];
+        if (!history[today]) history[today] = { learned: 0, unknown: 0 };
+        history[today][type]++;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(history));
+        updateStatsUI();
+    }
+    function updateStatsUI() {
+        const history = getHistory();
+        const today = new Date().toISOString().split('T')[0];
+        const stats = history[today] || { learned: 0, unknown: 0 };
+        document.getElementById('todayLearned').innerText = stats.learned;
+        document.getElementById('todayUnknown').innerText = stats.unknown;
+    }
+
+    function openCalendar() { document.getElementById('calendarModal').style.display = 'flex'; renderCalendar(); }
+    function closeCalendar() { document.getElementById('calendarModal').style.display = 'none'; }
+    window.onclick = function(event) {
+        if (event.target == document.getElementById('calendarModal')) closeCalendar();
+        if (event.target == document.getElementById('settingsModal')) closeSettings();
+    }
+
+    function renderCalendar() {
+        const grid = document.getElementById('calGrid'); grid.innerHTML = "";
+        const now = new Date();
+        const currentMonth = now.getMonth(); const currentYear = now.getFullYear();
+        const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        document.getElementById('calMonthTitle').innerText = `${monthNames[currentMonth]} ${currentYear}`;
+        const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+        const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+        const history = getHistory();
+
+        for (let i = 0; i < firstDay; i++) grid.appendChild(document.createElement('div'));
+        for (let day = 1; day <= daysInMonth; day++) {
+            const dateStr = `${currentYear}-${String(currentMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;
+            const dayData = history[dateStr];
+            const cell = document.createElement('div'); cell.className = 'cal-day';
+            if (day === now.getDate() && currentMonth === now.getMonth()) cell.classList.add('today');
+            cell.innerHTML = `<span>${day}</span>`;
+            if (dayData) {
+                const statsRow = document.createElement('div'); statsRow.className = 'cal-stats-row';
+                if (dayData.learned > 0) statsRow.innerHTML += `<span class="cal-learned">+${dayData.learned}</span>`;
+                if (dayData.unknown > 0) statsRow.innerHTML += `<span class="cal-unknown">-${dayData.unknown}</span>`;
+                cell.appendChild(statsRow);
+            }
+            grid.appendChild(cell);
+        }
+    }
+</script>
+<script src="data.js"></script>
+
+</body>
+</html>
